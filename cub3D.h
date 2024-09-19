@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 17:41:36 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:08:02 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 # include "./libft/libft.h"
 # include <stdio.h>
+# include "./part1/get_next_line.h"
 # include <math.h>
 # include <unistd.h>
 # include <mlx.h>

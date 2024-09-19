@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:16:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2023/12/28 12:59:22 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:10:44 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*get_str(char *str, int fd, char *buf)
 	int		openfile;
 
 	openfile = 1;
-	while (!ft_strchr(str, '\n') && openfile)
+	while (!ft_strchr_get_next_line(str, '\n') && openfile)
 	{
 		openfile = read(fd, buf, BUFFER_SIZE);
 		if (openfile < 0)

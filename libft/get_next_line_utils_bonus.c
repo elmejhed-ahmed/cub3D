@@ -6,78 +6,115 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 15:18:12 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 17:54:35 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:06:39 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr_next_line(const char *str, int c)
+void	*my_calloc(size_t count, size_t size)
 {
-	int	i;
+	void	*arr;
+	size_t	i;
 
-	i = 0;
-	if (str == NULL)
+	if (((int)count < 0 && (int)size < 0))
+		return (0);
+	arr = malloc(size * count);
+	if (!arr)
 		return (NULL);
-	while (str[i])
+	i = 0;
+	while (i < (count * size))
 	{
-		if (str[i] == (char)c)
-			return ((char *)&str[i]);
+		*((char *)arr + i) = '\0';
 		i++;
 	}
-	if (str[i] == (char)c)
-		return ((char *)&str[i]);
-	return (NULL);
+	return (arr);
 }
 
-size_t	ft_strlen(const char *str)
+char	*to_join(char *s1, char *s2, int indice)
+{
+	char	*str1;
+	char	*str2;
+
+	str1 = s1;
+	str2 = s2;
+	if (indice == 0)
+	{
+		free(s1);
+		s1 = NULL;
+		return (NULL);
+	}
+	s1 = my_strjoin(s1, s2);
+	if (!s1)
+		return (to_join(str1, NULL, 0));
+	free(str1);
+	str1 = NULL;
+	if (indice == 1)
+	{
+		free (str2);
+		str2 = NULL;
+	}
+	return (s1);
+}
+
+void	*my_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strjoin_next_line(char *s1, char *s2)
-{
-	char		*ml;
-
-	if (!s1 && !s2)
+	if (!dst && !src)
 		return (NULL);
-	if (!s1)
-		return (ft_strjoin("", s2));
-	if (!s2)
-		return (ft_strjoin(s1, ""));
-	ml = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (!ml)
-		return (NULL);
-	ft_memcpy(ml, s1, ft_strlen(s1));
-	ft_memcpy(ml + ft_strlen(s1), s2, ft_strlen(s2));
-	ml[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	return (ml);
-}
-
-void	*ft_memcpy_next_line(void *dst, const void *src, size_t n)
-{
-	size_t		i;
-	char		*ds;
-	const char	*sr;
-
-	i = 0;
-	ds = (char *)dst;
-	sr = (const char *)src;
-	if (!src && !dst)
-		return (NULL);
-	if (ds == sr)
-		return ((unsigned char *)src);
+	if (dst == src)
+		return (dst);
 	while (i < n)
 	{
-		ds[i] = sr[i];
+		*((char *) dst + i) = *((char *) src + i);
 		i++;
 	}
 	return (dst);
+}
+
+char	*my_strjoin(char *s1, char *s2)
+{
+	ssize_t		len;
+	ssize_t		len2;
+	char		*arr;
+
+	len = 0;
+	len2 = 0;
+	if ((!s1 && !s2))
+		return (0);
+	else if (!s1)
+		return (my_strjoin("", s2));
+	else if (!s2)
+		return (my_strjoin(s1, ""));
+	while (s1[len])
+		len++;
+	while (s2[len2])
+		len2++;
+	arr = malloc(sizeof(char) * len + len2 + 1);
+	if (!arr)
+		return (NULL);
+	my_memcpy(arr, s1, len);
+	my_memcpy(arr + len, s2, len2);
+	*(arr + len + len2) = '\0';
+	return (arr);
+}
+
+char	*my_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (*(s + i))
+	{
+		if (*((char *)s + i) == (char)c)
+			return ((char *)s + i);
+		i++;
+	}
+	if (*((char *)s + i) == (char)c)
+		return ((char *)s + i);
+	return (NULL);
 }

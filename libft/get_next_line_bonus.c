@@ -6,99 +6,125 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 15:18:54 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 18:01:24 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:06:46 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*checknextlinge(char *checkstr)
+static int	count_line(char *buffer, int indice)
 {
-	int		i;
-	char	*rslt;
-
-	i = 0;
-	while (checkstr[i] != '\n' && checkstr[i] != '\0')
-		i++;
-	if (checkstr[i] == '\n')
-		i++;
-	rslt = malloc(sizeof(char) * (ft_strlen(checkstr) - i) + 1);
-	if (!rslt)
-	{
-		free(checkstr);
-		return (checkstr = NULL, NULL);
-	}
-	ft_memcpy(rslt, checkstr + i, ft_strlen(checkstr) - (i));
-	rslt[ft_strlen(checkstr) - i] = '\0';
-	free(checkstr);
-	checkstr = NULL;
-	return (rslt);
-}
-
-static char	*checkline(char *check)
-{
-	int		i;
+	int		len;
 	char	*str;
+	int		str_len;
 
-	i = 0;
-	while (check[i] != '\n' && check[i])
-		i++;
-	if (check[i] == '\n')
-		i++;
-	str = malloc(sizeof(char) * i + 1);
-	if (str == NULL)
-		return (free(check), check = NULL, NULL);
-	ft_memcpy(str, check, i);
-	str[i] = '\0';
-	return (str);
+	len = 0;
+	str_len = 0;
+	if (!buffer)
+		return (0);
+	len = 0;
+	while (buffer[len])
+		len++;
+	str = my_strchr(buffer, '\n');
+	if (!str)
+		return (len);
+	while (str[str_len])
+		str_len++;
+	if (indice == 0)
+		return ((len - str_len) + 1);
+	else if (indice == 1)
+		return (len - (len - str_len));
+	else
+		return (count_line(str + 1, 0));
 }
 
-static char	*get_str(char *str, int fd, char *buf)
+static char	*cut_(char *buffer, int indice)
 {
-	char	*joinstr;
-	int		openfile;
+	char	*s;
+	int		len;
 
-	openfile = 1;
-	while (!ft_strchr_next_line(str, '\n') && openfile)
+	len = count_line(buffer, indice);
+	s = my_calloc(len + 1, sizeof(char));
+	if (!s)
+		return (NULL);
+	else if (indice == 0)
+		my_memcpy(s, buffer, len);
+	else if (indice == 1)
 	{
-		openfile = read(fd, buf, BUFFER_SIZE);
-		if (openfile < 0)
-			return (free(buf), free(str), buf = NULL, str = NULL, NULL);
-		buf[openfile] = '\0';
-		joinstr = str;
-		str = ft_strjoin(str, buf);
-		if (!str)
-		{
-			free(joinstr);
-			joinstr = NULL;
-			return (free(buf), buf = NULL, NULL);
-		}
-		free(joinstr);
-		joinstr = NULL;
+		if (*buffer && my_strchr(buffer, '\n'))
+			my_memcpy(s, (buffer + count_line(buffer, 0)), len);
 	}
-	free(buf);
-	if (str && str[0] == '\0')
-		return (free(str), str = NULL, NULL);
-	return (str);
+	return (s);
+}
+
+static char	*read_until_n_line(int fd, char *t_r)
+{
+	char	*buffer;
+	ssize_t	n;
+	char	*line;
+
+	buffer = my_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buffer)
+		return (to_join(t_r, NULL, 0));
+	n = 1;
+	line = t_r;
+	while (n)
+	{
+		n = read(fd, buffer, BUFFER_SIZE);
+		if (n < 0)
+			return (to_join(buffer, NULL, 0), to_join(line, NULL, 0));
+		buffer[n] = '\0';
+		line = to_join(line, buffer, 3);
+		if (!line)
+			return (free(buffer), NULL);
+		if (buffer && my_strchr(buffer, '\n'))
+			break ;
+	}
+	if (line && *line == '\0')
+		return (to_join(buffer, NULL, 0), line = to_join(line, NULL, 0), NULL);
+	return (free(buffer), line);
+}
+
+static char	*cut_the_rest(char **t_r, char **tmp, char **line)
+{
+	*tmp = cut_(*t_r, 1);
+	if (!(*tmp))
+		return (free(*t_r), *t_r = NULL, NULL);
+	if (*tmp && **tmp == '\0')
+		*tmp = to_join(*tmp, NULL, 0);
+	*line = cut_(*t_r, 0);
+	if (!(*line))
+		return (free(*tmp), free(*t_r), *t_r = NULL, NULL);
+	free(*t_r);
+	*t_r = *tmp;
+	return (*line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
-	char		*printline;
-	char		*buff;
+	static char	*t_r[OPEN_MAX];
+	char		*line;
+	char		*tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buff = malloc((size_t)BUFFER_SIZE + 1);
-	if (!buff)
-		return (free(str), str = NULL, NULL);
-	str = get_str(str, fd, buff);
-	if (str == NULL)
-		return (NULL);
-	printline = checkline(str);
-	if (!printline)
-		return (str = NULL, NULL);
-	str = checknextlinge(str);
-	return (printline);
+	if (t_r[fd] && my_strchr(t_r[fd], '\n'))
+		return (cut_the_rest(&t_r[fd], &tmp, &line));
+	else
+	{
+		line = read_until_n_line(fd, t_r[fd]);
+		if (!line)
+			return (t_r[fd] = NULL, NULL);
+		else if (line && *line == '\0')
+			return (line = to_join(line, NULL, 0), to_join(t_r[fd], NULL, 0));
+		t_r[fd] = cut_(line, 1);
+		if (!t_r[fd])
+			return (free(line), line = NULL, NULL);
+		tmp = line;
+		line = cut_(line, 0);
+		if (!line)
+			return (free(tmp), free(t_r[fd]), t_r[fd] = NULL, NULL);
+		free(tmp);
+		return (line);
+	}
 }

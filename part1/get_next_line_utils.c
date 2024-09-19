@@ -6,13 +6,13 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 17:27:06 by ael-mejh          #+#    #+#             */
-/*   Updated: 2023/12/27 18:20:25 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:09:35 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr_get_next_line(const char *str, int c)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen_get_next_line(const char *str)
 {
 	size_t	i;
 
@@ -42,7 +42,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_get_next_line(char *s1, char *s2)
 {
 	char		*ml;
 
@@ -61,7 +61,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (ml);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy_get_next_line(void *dst, const void *src, size_t n)
 {
 	size_t		i;
 	char		*ds;

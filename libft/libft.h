@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:09:28 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 17:54:45 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:17:04 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
-char	*ft_strchr_next_line(const char *str, int c);
-char	*ft_strjoin_next_line(char *s1, char *s2);
-void	*ft_memcpy_next_line(void *dst, const void *src, size_t n);
-
+char	*my_strchr(const char *s, int c);
+char	*my_strjoin(char *s1, char *s2);
+void	*my_memcpy(void *dst, const void *src, size_t n);
+char	*to_join(char *s1, char *s2, int indice);
+void	*my_calloc(size_t count, size_t size);
 #endif

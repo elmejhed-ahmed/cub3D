@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 17:59:00 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:22:18 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ int read_file(char **av, t_cub *cub)
         cub->copy = ft_strjoin(cub->copy, cub->file);
         free(cub->file);
         free(cub->tmp);
-        printf("%s", cub->copy);
         cub->file = get_next_line(fd);
     }
     close(fd);
-    // int i = 0;
-    // while (cub->copy[i])
-    // {
-        printf("%s", cub->copy);
-    //     i++;
-    // }
+    int i = 0;
+    while(cub->copy[i])
+    {
+        printf("%c", cub->copy[i]);
+        i++;
+    }
+    
     return (0);
 }
 
