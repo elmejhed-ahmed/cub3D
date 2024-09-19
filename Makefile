@@ -1,36 +1,36 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/16 15:18:17 by ael-mejh          #+#    #+#              #
-#    Updated: 2024/09/17 13:38:20 by ael-mejh         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME=cub3D
+CC=cc
+S=-fsanitize=address -g
+FLAGS=-Wall -Wextra -Werror $(S)
+PARSING=
+PART2= 
+SRC=cub.c $(PARSING) $(PART2)
+OBJ=$(SRC:.c=.o)
+LIBFT= ./libft/libft.a
+LIBFT_PATH=./libft
+INCLUDES=./libft/libft.h cub3d.h
+FRAMEWORKS= -framework OpenGL -framework AppKit
 
-NAME = cub
-CC	= cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-SRC = ft_split.c cub3D.c get_next_line_utils.c get_next_line.c
-OBJ = $(SRC:.c=.o)
+all : libf $(NAME)
 
-all: $(NAME)
+libf :
+	make -C $(LIBFT_PATH)
 
+$(NAME) : $(OBJ)
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -lmlx $(FRAMEWORKS) -o $@
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $(NAME) 
+%.o : %.c $(INCLUDES)
+	$(CC) $(FLAGS) -c $< -o $@
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+clean :
+	@make -C $(LIBFT_PATH) $@
+	rm -f $(OBJ)
 
-clean:
-	rm -rf $(OBJ)
-
-fclean: clean
+fclean : clean
+	@make -C $(LIBFT_PATH) $@
 	rm -f $(NAME)
 
-re: fclean all
+re : fclean all
 
-.PHONY: clean
+.PHONY : clean
+
