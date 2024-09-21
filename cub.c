@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 16:34:21 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:52:00 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,29 @@ int check_extention(char *str)
     return 0;
 }
 
-void pars_color_floor_ceiling(char *str, t_texture *texture, int j)
+int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 {
     int i;
 
     i = j;
     while(str[i] == ' ')
         i++;
-
-    while(str[i])
+    while (str[i] != '\0')
     {
-        if ((str[i] >= 48 && str[i] <= 57) || str[i] == ',')
-        {
-            i++;
-            printf("good\n");
-            continue;
+        if (!ft_isdigit(str[i]) && str[i] != ',' && str[i] != ' ' && str[i] != '\n') {
+            printf("Error: Invalid character '%c' at position %d\n", str[i], i);
+            return 1;
         }
-        else
-        {
-            printf("errorrr\n\n");
-            return ;
-        }
+        i++;
     }
-    printf("%s\n\n\n", str);
+    while (str[j])
+    {
+        
+    }
+    
+    printf("%s\n", str);
     texture = NULL;
+    return 0;
 }
 
 int go_to_check(char *str, t_texture *texture, int i)
@@ -57,7 +56,10 @@ int go_to_check(char *str, t_texture *texture, int i)
         i++;
     int j = i;
     if ((Fl || Ce ) && (str[i + 1] == ' '))
-        pars_color_floor_ceiling(str, texture, i + 1);
+    {
+        if (pars_color_floor_ceiling(str, texture, i + 1))
+            return 1;
+    }
     else if (((N || S || W || E || Fl || Ce )) && (str[i + 2] == ' '))
     {
         i += 2;
