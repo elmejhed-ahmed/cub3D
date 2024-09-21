@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 18:22:18 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:35:16 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,90 @@ int check_extention(char *str)
     return 0;
 }
 
-int read_file(char **av, t_cub *cub)
+void pars_floor_ceiling()
+
+int go_to_check(char *str, t_texture *texture, int i)
+{
+    while (str[i] == ' ')
+        i++;
+    int j = i;
+    if (((N || S || W || E || Fl || Ce)) && (str[i + 2] == ' '))
+    {
+        i += 2;
+        while(str[i] == ' ')
+            i++;
+        if (str[j] == 'N' && str[j + 1] == 'O')
+            texture->NO = ft_strdup(&str[i]);
+        if (str[j] == 'S' && str[j + 1] == 'O')
+            texture->SO = ft_strdup(&str[i]);
+        if (str[j] == 'W' && str[j + 1] == 'E')
+            texture->WE = ft_strdup(&str[i]);
+        if (str[j] == 'E' && str[j + 1] == 'A')
+            texture->EA = ft_strdup(&str[i]);
+        if (str[j] == 'F' || str[j] == 'C')
+            pars_floor_ceiling();
+    }
+    else if (((N || S || W || E || Fl || Ce)) && (str[i + 2] != ' '))
+        return (printf("error\nerror in direction"), 1);
+    return 0;
+}
+// int go_to_check(char *str, t_texture *texture, int i)
+// {
+//     while (str[i] == ' ')
+//         i++;
+//     int j = i;
+//     if ((str[i + 2] == ' ') && (N || S || W || E))
+//     {
+//         i += 2;
+//         printf("-->>[%c]<<--", str[i]);
+//         while(str[i] == ' ')
+//             i++;
+//         if ((str[j] == 'N' && str[j + 1] == 'O'))
+//             texture->NO = ft_strdup(&str[i]);
+//         if ((str[j] == 'S' && str[j + 1] == 'O'))
+//             texture->SO = ft_strdup(&str[i]);
+//         if (str[j] == 'W' && str[j + 1] == 'E')
+//             texture->WE = ft_strdup(&str[i]);
+//         if (str[j] == 'E' && str[j + 1] == 'A')
+//             texture->EA = ft_strdup(&str[i]);
+//     }
+//     else 
+//         return (printf("asfa asfa"), 1);
+//     return 0;
+// }
+void init_variables_direction(t_texture *texture)
+{
+    texture->EA = NULL;
+    texture->NO = NULL;
+    texture->SO = NULL;
+    texture->WE = NULL;
+    texture->F = NULL;
+    texture->C = NULL;
+}
+int read_file(char **av, t_cub *cub, t_texture *texture)
 {
     int fd;
-    cub->copy = NULL;
-
+    
     fd = open(av[1], O_RDWR);
     if (fd < 0)
         return (1);
     cub->file = get_next_line(fd);
     if (!(cub->file))
         return (write(2, "error\n", 6) ,1);
+    init_variables_direction(texture);
     while(cub->file != NULL)
     {   
-        cub->tmp = cub->copy;
-        cub->copy = ft_strjoin(cub->copy, cub->file);
+        int i = 0;
+        while(cub->file[i])
+            i++;
+        if (cub->file[i - 1] != '\n')
+            return (write(2, "error\nerror new line\n", 21) ,1);
+        if (go_to_check(cub->file, texture, 0))
+            return (1);
         free(cub->file);
-        free(cub->tmp);
         cub->file = get_next_line(fd);
     }
     close(fd);
-    int i = 0;
-    while(cub->copy[i])
-    {
-        printf("%c", cub->copy[i]);
-        i++;
-    }
     
     return (0);
 }
@@ -58,13 +116,18 @@ int read_file(char **av, t_cub *cub)
 int main(int ac, char **av)
 {
     t_cub cub;
-
+    t_texture texture;
     if (ac != 2)
         return (write(0, "error\ninvalid argument\n", 23), 1);
     if (check_extention(av[1]))
         return (write(0, "error\ninvalid extention\n", 24), 1);
-    if (read_file(av, &cub))
-        return (write(0, "error\nrererere\n", 15), 1);
-    
+    if (read_file(av, &cub, &texture))
+        return (1);
+    printf("NO ---> %s\n", texture.NO);
+    printf("SO ---> %s\n", texture.SO);
+    printf("WE ---> %s\n", texture.WE);
+    printf("EA ---> %s\n", texture.EA);
+    printf("F ---> %s\n", texture.F);
+    printf("C ---> %s\n", texture.C);
     return 0;
 }

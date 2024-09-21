@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 18:08:02 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:32:04 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # include <mlx.h>
 # ifndef PI
 # define PI 3.14
+
+# define N (str[i] == 'N' && str[i + 1] == 'O')
+# define S (str[i] == 'S' && str[i + 1] == 'O')
+# define W (str[i] == 'W' && str[i + 1] == 'E')
+# define E (str[i] == 'E' && str[i + 1] == 'A')
+# define Fl (str[i] == 'F')
+# define Ce (str[i] == 'C')
 # endif
 
 #define PIXELS 30
@@ -32,11 +39,15 @@ typedef struct s_cub
     char *tmp;    
 }   t_cub;
 
-
-
-
-
-
+typedef struct s_texture
+{
+	char 	*NO;
+	char 	*SO;
+	char 	*WE;
+	char 	*EA;
+	char	*F;
+	char	*C;
+} t_texture;
 
 typedef struct	s_mlx
 {
