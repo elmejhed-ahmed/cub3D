@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/22 17:32:24 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:06:53 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,48 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
     char *trim;
 
     i = j + 1;
-    printf("%s", &str[i]);
     trim = ft_strtrim(&str[i],"\n");
+    trim = ft_strtrim(trim," ");
+    printf("%s\n", trim);
+    i = 0;
+    while (trim[i] != '\0' &&  trim[i] != '\n')
+    {
+        if (!ft_isdigit(trim[i]) && trim[i] != ',' && trim[i] != ' ') {
+            printf("Error\nadd just numbers separetly with `,` in F and C\n");
+            return 1;
+        }
+        i++;
+    }
     i = 0;
     if (trim[i] == ',')
-        return (printf("Errsor: In111111 \n"), 1);
-    // while (str[k] != '\0' &&  str[k] != '\n')
-    // {
-    //     if (str[k] == ' ')
-    //     {
-    //         k++;
-    //         continue;
-    //     }
-    //     if ((str[k] == ',' && str[k + 1] == ','))
-    //         return (printf("Error: Invalid character '%c' at position %d\n", str[k], k), 1);
-    //     if (str[k] == ',' && (str[k + 1] == '\n' || str[k + 1] == '\0'))
-    //         return (printf("Errsor: In \n"), 1);
-    //     k++;
-    // }
+        return (printf("Error\nError:`,` in the first \n"), 1);
+    int sq = 0;
+    while (trim[i] != '\0' &&  trim[i] != '\n')
+    {
+        if (trim[i] == ',')
+            sq++;
+        if (trim[i] == ' ')
+        {
+            i++;
+            continue;
+        }
+        if ((trim[i] == ',' && trim[i + 1] == ','))
+            return (printf("Error: Invalid character '%c' at position %d\n", trim[i],i), 1);
+        if (trim[i] == ',' && (trim[i + 1] == '\n' || trim[i + 1] == '\0'))
+            return (printf("Errror\nYou have a `,` in the last in F or C\n"), 1);
+        i++;
+    }
+    if (sq > 2)
+        return (printf("Error\nthe number of parametr in F or C is not correct\n"), 1);
+    printf("\n\n%d\n\n", sq);
+    printf(" ==== >%s\n",trim);
     new = ft_split(&trim[i], ',');
     k = 0;
     while (new[k])
     {
         int o = 0;
         trim = ft_strtrim(new[k]," ");
-        printf("trim ====>> %s\n", trim);
+        // printf("trim ====>> %s\n", trim);
         while (trim[o] && trim[o] != '\n')
         {
             if (trim[o] == ' ')
@@ -65,19 +82,12 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
             o++;
         }
         free(trim);
-        printf("[%s] |\n", new[k]);
+        // printf("[%s] |\n", new[k]);
         k++;
     }
     
     // k = i;
-    // while (str[i] != '\0' &&  str[i] != '\n')
-    // {
-    //     if (!ft_isdigit(str[i]) && str[i] != ',' && str[i] != ' ') {
-    //         printf("Error: Invalid character '%c' at position %d\n", str[i], i);
-    //         return 1;
-    //     }
-    //     i++;
-    // }
+    
     // int p = 0;
     // while (str[k] != '\0' &&  str[k] != '\n')
     // {
@@ -184,10 +194,10 @@ int main(int ac, char **av)
         return (write(0, "error\ninvalid extention\n", 24), 1);
     if (read_file(av, &cub, &texture))
         return (1);
-    printf("NO ---> [[[%s]]]\n", texture.NO);
-    printf("SO ---> [[[%s]]]\n", texture.SO);
-    printf("WE ---> [[[%s]]]\n", texture.WE);
-    printf("EA ---> [[[%s]]]\n", texture.EA);
+    // printf("NO ---> [[[%s]]]\n", texture.NO);
+    // printf("SO ---> [[[%s]]]\n", texture.SO);
+    // printf("WE ---> [[[%s]]]\n", texture.WE);
+    // printf("EA ---> [[[%s]]]\n", texture.EA);
     // printf("F ---> %s\n", texture.F);
     // printf("C ---> %s\n", texture.C);
     return 0;
