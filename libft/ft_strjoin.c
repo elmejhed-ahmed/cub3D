@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 19:55:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/19 18:19:22 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:07:48 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memmove(arr + len, s2, len2);
 	*(arr + len + len2) = '\0';
 	return (arr);
+}
+char	*ft_strjoin1(char *s1, char *s2)
+{
+	char		*ml;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strjoin("", s2));
+	if (!s2)
+		return (ft_strjoin(s1, ""));
+	ml = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!ml)
+		return (NULL);
+	ft_memcpy(ml, s1, ft_strlen(s1));
+	ft_memcpy(ml + ft_strlen(s1), s2, ft_strlen(s2));
+	ml[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	return (ml);
 }

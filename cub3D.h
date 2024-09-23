@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/21 16:21:26 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:31:39 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_texture
 	char 	*EA;
 	int		F[3];
 	int		C[3];
+	char	*map;
 } t_texture;
 
 typedef struct	s_mlx

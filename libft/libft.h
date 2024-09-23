@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:09:28 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/22 13:30:37 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:07:59 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ void	*my_calloc(size_t count, size_t size);
 
 /*-----------------------------*/
 char	*ft_strdup1(const char *s1);
-
+char	*ft_strjoin1(char *s1, char *s2);
 #endif
