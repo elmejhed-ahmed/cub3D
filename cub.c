@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/22 18:06:53 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:53:19 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
     i = j + 1;
     trim = ft_strtrim(&str[i],"\n");
     trim = ft_strtrim(trim," ");
-    printf("%s\n", trim);
+
     i = 0;
-    while (trim[i] != '\0' &&  trim[i] != '\n')
+    while (trim[i] != '\0')
     {
         if (!ft_isdigit(trim[i]) && trim[i] != ',' && trim[i] != ' ') {
             printf("Error\nadd just numbers separetly with `,` in F and C\n");
@@ -49,7 +49,7 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
     if (trim[i] == ',')
         return (printf("Error\nError:`,` in the first \n"), 1);
     int sq = 0;
-    while (trim[i] != '\0' &&  trim[i] != '\n')
+    while (trim[i] != '\0')
     {
         if (trim[i] == ',')
             sq++;
@@ -66,48 +66,48 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
     }
     if (sq > 2)
         return (printf("Error\nthe number of parametr in F or C is not correct\n"), 1);
-    printf("\n\n%d\n\n", sq);
-    printf(" ==== >%s\n",trim);
-    new = ft_split(&trim[i], ',');
+    new = ft_split(trim, ',');
     k = 0;
     while (new[k])
     {
         int o = 0;
+        int count = 0;
         trim = ft_strtrim(new[k]," ");
         // printf("trim ====>> %s\n", trim);
-        while (trim[o] && trim[o] != '\n')
+        while (trim[o])
         {
             if (trim[o] == ' ')
-                return (printf("error\n\n\n"), 1);
+                return (printf("error\nthis number {%s} is not correct \n", trim), 1);
+            if (ft_isdigit(trim[o]))
+                count ++;
             o++;
         }
+        if (count > 3)
+            return (printf("error\nthis number {%s} is not correct \n",trim), 1);
         free(trim);
-        // printf("[%s] |\n", new[k]);
         k++;
     }
-    
-    // k = i;
-    
-    // int p = 0;
-    // while (str[k] != '\0' &&  str[k] != '\n')
-    // {
-    //     int nu = 0;
-    //     while (str[k + nu] != '\0' && str[k + nu] != ',' &&  str[k + nu] != '\n')
-    //     {
-    //         if (str[k + nu] == ',')
-    //             p++;
-    //         nu++;
-    //     }
-    //     if (nu > 3)
-    //         return (printf("len len len len number \n"), 1);
-    //     k += nu;
-    //     if (str[k] == ',')
-    //         k++;
-    // }
-    // printf("---------------->>    num ==== {%d}\n", p);
     if (str[j] == 'F')
     {
-        texture->F[0] = 225;
+        i = 0;
+        while(new[i])
+        {
+            texture->F[i] = ft_atoi(new[i]);
+            if ( texture->F[i] > 255)
+                return (printf("error\nthis number {%d} > 255\n",texture->F[i]), 1);
+            i++;
+        }
+    }
+    if (str[j] == 'C')
+    {
+        i = 0;
+        while(new[i])
+        {
+            texture->C[i] = ft_atoi(new[i]);
+            if ( texture->C[i] > 255)
+                return (printf("error\nthis number {%d} > 255\n",texture->C[i]), 1);
+            i++;
+        }
     }
     return 0;
 }
@@ -147,13 +147,16 @@ void init_variables_direction(t_texture *texture)
     texture->NO = NULL;
     texture->SO = NULL;
     texture->WE = NULL;
-    // texture->F = NULL;
-    // texture->C = NULL;
+    texture->F[0] = -1;
+    texture->F[1] = -1;
+    texture->F[2] = -1;
+    texture->C[0] = -1;
+    texture->C[1] = -1;
+    texture->C[2] = -1;
 }
 int read_file(char **av, t_cub *cub, t_texture *texture)
 {
     int fd;
-    
     fd = open(av[1], O_RDWR);
     if (fd < 0)
         return (1);
@@ -194,11 +197,17 @@ int main(int ac, char **av)
         return (write(0, "error\ninvalid extention\n", 24), 1);
     if (read_file(av, &cub, &texture))
         return (1);
-    // printf("NO ---> [[[%s]]]\n", texture.NO);
-    // printf("SO ---> [[[%s]]]\n", texture.SO);
-    // printf("WE ---> [[[%s]]]\n", texture.WE);
-    // printf("EA ---> [[[%s]]]\n", texture.EA);
-    // printf("F ---> %s\n", texture.F);
-    // printf("C ---> %s\n", texture.C);
+    printf("NO ---> [[[%s]]]\n", texture.NO);
+    printf("SO ---> [[[%s]]]\n", texture.SO);
+    printf("WE ---> [[[%s]]]\n", texture.WE);
+    printf("EA ---> [[[%s]]]\n", texture.EA);
+    printf("------------------------------------\n");
+    printf("F ---> %d\n", texture.F[0]);
+    printf("F ---> %d\n", texture.F[1]);
+    printf("F ---> %d\n", texture.F[2]);
+    printf("------------------------------------\n");
+    printf("C ---> %d\n", texture.C[0]);
+    printf("C ---> %d\n", texture.C[1]);
+    printf("C ---> %d\n", texture.C[2]);
     return 0;
 }
