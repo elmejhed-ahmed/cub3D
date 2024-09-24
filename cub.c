@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/23 19:30:31 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:50:51 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,65 @@ int check_all_is_full(t_texture *texture)
 		return 1;
 	return 0;
 }
+int parsing_map(t_cub *cub)
+{
+	cub->map1 = ft_split(cub->map, '\n');
+	int i = 0;
+	/*check valid caracter in map*/
+	while(cub->map1[i])
+	{
+		int j = 0;
+		while(cub->map1[i][j])
+		{
+			if (cub->map1[i][j] != '1' && cub->map1[i][j] != '0'
+				&& cub->map1[i][j] != ' ' && cub->map1[i][j] != 'N'
+				&& cub->map1[i][j] != 'S' && cub->map1[i][j] != 'E'
+				&& cub->map1[i][j] != 'W')
+			{
+				return (printf("Error\ninvalid caracter '%c' in map\n", cub->map1[i][j]),1);
+			}
+			
+			j++;
+		}
+		i++;
+	}
+	/*check wall*/
+	i = 0;
+	
+	while (cub->map1[i])
+	{
+		int j = 0;
+		while (cub->map1[i][j] == ' ')
+			j++;
+		if (cub->map1[i][j] == '\0')
+		{
+			int k = i - 1;
+			while (cub->map1[k][j])
+			{
+				if (cub->map1[k][j] == '0')
+					return (printf("ache lmmaaaap\n"),1);
+				j++;
+			}
+		}
+		else
+		{
+			while (cub->map1[i][j])
+			{
+				if (cub->map1[i][j] == ' '
+					&& ((cub->map1[i - 1][j] != '1' && cub->map1[i - 1][j] != ' ')))
+					return (printf("ache hadchiiiiii\n"),1);
+				if ((i == 0 && cub->map1[i][j] == '0')
+					|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == ' ')
+					|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == '\0'))
+					return (printf("Error\ninvalid in mmmap"),1);
+					
+				j++;
+			}
+		}
+		i++;
+	}
+	return 0;	
+}
 int read_file(char **av, t_cub *cub, t_texture *texture)
 {
 	int f;
@@ -203,22 +262,33 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 		free(cub->file);
 		cub->file = get_next_line(fd);
 	}
-	if (f == 100)
+	if (cub->file)
 	{
+		cub->map = NULL;
 		while(cub->file != NULL)
-		{   
+		{
 			i = 0;
 			while(cub->file[i])
 				i++;
 			if ((i > 0) && cub->file[i - 1] != '\n')
 				return (close(fd), write(2, "error\nadd a new line in the last line in map\n", 45) ,1);
-			texture->map = ft_strjoin1(texture->map, cub->file);
+			if (i == 1 && cub->file[i - 1] == '\n')
+				return (close(fd), write(2, "error\nerror in map", 18) ,1);
+			cub->map = ft_strjoin1(cub->map, cub->file);
 			free(cub->file);
 			cub->file = get_next_line(fd);
 		}
 	}
-	printf("%s", texture->map);
+	else
+		printf("error\nput your map\n");
 	close(fd);
+	if (parsing_map(cub))
+		return (1);
+	else
+	{
+		printf("MAP IISS GOOD");
+		// texture->map = cub->map1;
+	}
 	return (0);
 }
 
