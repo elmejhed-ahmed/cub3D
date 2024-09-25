@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/24 17:50:51 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:35:00 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int go_to_check(char *str, t_texture *texture, int i)
 
 void init_variables_direction(t_texture *texture)
 {
+	/*initialaze avariable*/
 	texture->EA = NULL;
 	texture->NO = NULL;
 	texture->SO = NULL;
@@ -157,6 +158,7 @@ void init_variables_direction(t_texture *texture)
 }
 int check_all_is_full(t_texture *texture)
 {
+	/*check all variable in struct is full*/
 	if (texture->EA != NULL &&  texture->NO != NULL
 		&& texture->SO != NULL &&  texture->WE != NULL
 		&& texture->F[0] >= 0 && texture->F[1] >= 0
@@ -165,8 +167,15 @@ int check_all_is_full(t_texture *texture)
 		return 1;
 	return 0;
 }
+
 int parsing_map(t_cub *cub)
 {
+	cub->s = 0;
+	cub->n = 0;
+	cub->w = 0;
+	cub->e = 0;
+	
+	/* split '\n' in map to change it to 2D array */
 	cub->map1 = ft_split(cub->map, '\n');
 	int i = 0;
 	/*check valid caracter in map*/
@@ -175,6 +184,7 @@ int parsing_map(t_cub *cub)
 		int j = 0;
 		while(cub->map1[i][j])
 		{
+			/*count map is have this caracters '1' '0' ' ' 'S' 'W' 'N' 'E' */
 			if (cub->map1[i][j] != '1' && cub->map1[i][j] != '0'
 				&& cub->map1[i][j] != ' ' && cub->map1[i][j] != 'N'
 				&& cub->map1[i][j] != 'S' && cub->map1[i][j] != 'E'
@@ -182,43 +192,71 @@ int parsing_map(t_cub *cub)
 			{
 				return (printf("Error\ninvalid caracter '%c' in map\n", cub->map1[i][j]),1);
 			}
-			
+			/*count player*/
+			if (cub->map1[i][j] == 'S')
+				cub->s++;
+			if (cub->map1[i][j] == 'W')
+				cub->w++;
+			if (cub->map1[i][j] == 'E')
+				cub->e++;
+			if (cub->map1[i][j] == 'N')
+				cub->n++;
 			j++;
 		}
 		i++;
 	}
-	/*check wall*/
+	/*check player*/
+	if (cub->s > 1 || cub->w > 1 || cub->e > 1 || cub->n > 1)
+		return (printf("you have multiple player\n"), 1);
+	if (cub->s == 1 && (cub->w > 0 || cub->e > 0 || cub->n > 0))
+		return (printf("you have multiple player\n"), 1);
+	if (cub->w == 1 && (cub->s > 0 || cub->e > 0 || cub->n > 0))
+		return (printf("you have multiple player\n"), 1);
+	if (cub->e == 1 && (cub->s > 0 || cub->w > 0 || cub->n > 0))
+		return (printf("you have multiple player\n"), 1);
+	if (cub->n == 1 && (cub->s > 0 || cub->e > 0 || cub->w > 0))
+		return (printf("you have multiple player\n"), 1);
 	i = 0;
-	
+	size_t j = 0;
+	int p = 0;
+	/*now check  is avalid map or not*/
 	while (cub->map1[i])
 	{
-		int j = 0;
+		j = 0;
+		/*skip just ' '*/
 		while (cub->map1[i][j] == ' ')
 			j++;
+
 		if (cub->map1[i][j] == '\0')
 		{
 			int k = i - 1;
+			while(cub->map1[k][j] == ' ')
+				j++;
 			while (cub->map1[k][j])
 			{
 				if (cub->map1[k][j] == '0')
-					return (printf("ache lmmaaaap\n"),1);
+					return (printf("NOT VALID ==> %s\n", cub->map1[k]),1);
 				j++;
 			}
+			i++;
+			p = i;
+			continue;
 		}
-		else
+		while (cub->map1[i][j])
 		{
-			while (cub->map1[i][j])
-			{
-				if (cub->map1[i][j] == ' '
-					&& ((cub->map1[i - 1][j] != '1' && cub->map1[i - 1][j] != ' ')))
-					return (printf("ache hadchiiiiii\n"),1);
-				if ((i == 0 && cub->map1[i][j] == '0')
-					|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == ' ')
-					|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == '\0'))
-					return (printf("Error\ninvalid in mmmap"),1);
-					
-				j++;
-			}
+			if (((i == 0) && cub->map1[i][j] == '0')
+				|| (j == 0 && cub->map1[i][j] == '0')
+				|| (i == p && cub->map1[i][j] == '0')
+				|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == ' ')
+				|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == '\0')
+				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == ' ' && cub->map1[i][j + 1] == '0')
+				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == '0' && cub->map1[i - 1][j] == ' ')
+				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == '0' && cub->map1[i - 1][j] == '\0')
+				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == ' ' && cub->map1[i - 1][j] == '0')
+				|| (cub->map1[i + 1] == NULL && cub->map1[i][j] == '0') // for last line if have '0'
+				|| (cub->map1[i + 1]&& i != 0 && j < ft_strlen(cub->map1[i + 1]) && cub->map1[i][j] == ' ' && cub->map1[i + 1][j] == '0'))
+				return (printf("NOT VALID ==> %s\n", cub->map1[i]),1);
+			j++;
 		}
 		i++;
 	}
@@ -237,11 +275,11 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 	if (!(cub->file))
 		return (write(2, "error\n", 6) ,1);
 	init_variables_direction(texture);
+	/*read just a textures and color*/
 	while(cub->file != NULL)
 	{   
 		i = 0;
 		char *trim = ft_strtrim(cub->file, " ");
-		// printf("%s", trim);
 		while(trim[i])
 			i++;
 		if ((i > 0) && trim[i - 1] != '\n')
@@ -262,6 +300,7 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 		free(cub->file);
 		cub->file = get_next_line(fd);
 	}
+	/*if all variable (texture and color is full) go to read map now and join in this variable cub->map*/
 	if (cub->file)
 	{
 		cub->map = NULL;
@@ -278,17 +317,16 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 			free(cub->file);
 			cub->file = get_next_line(fd);
 		}
+		
 	}
 	else
-		printf("error\nput your map\n");
+		return (printf("error\nput your map\n"), 1);
 	close(fd);
+	/*after read map go to parsing this map*/
 	if (parsing_map(cub))
 		return (1);
 	else
-	{
-		printf("MAP IISS GOOD");
-		// texture->map = cub->map1;
-	}
+		texture->map = cub->map1;
 	return (0);
 }
 
@@ -303,17 +341,19 @@ int main(int ac, char **av)
 		return (write(0, "error\ninvalid extention\n", 24), 1);
 	if (read_file(av, &cub, &texture))
 		return (1);
-	// printf("NO ---> [[[%s]]]\n", texture.NO);
-	// printf("SO ---> [[[%s]]]\n", texture.SO);
-	// printf("WE ---> [[[%s]]]\n", texture.WE);
-	// printf("EA ---> [[[%s]]]\n", texture.EA);
-	// printf("------------------------------------\n");
-	// printf("F ---> %d\n", texture.F[0]);
-	// printf("F ---> %d\n", texture.F[1]);
-	// printf("F ---> %d\n", texture.F[2]);
-	// printf("------------------------------------\n");
-	// printf("C ---> %d\n", texture.C[0]);
-	// printf("C ---> %d\n", texture.C[1]);
-	// printf("C ---> %d\n", texture.C[2]);
+	
+	printf("%s\n", texture.NO);
+	printf("%s\n", texture.SO);
+	printf("%s\n", texture.WE);
+	printf("%s\n", texture.EA);
+	printf("F (%d, %d, %d)\n", texture.F[0], texture.F[1], texture.F[2]);
+	printf("C (%d, %d, %d)\n", texture.C[0], texture.C[1], texture.C[2]);
+	int i = 0;
+	while (texture.map[i])
+	{
+		printf("%s\n", texture.map[i]);
+		i++;
+	}
+	
 	return 0;
 }

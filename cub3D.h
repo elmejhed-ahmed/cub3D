@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/24 16:28:07 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:10:09 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ typedef struct s_cub
     char	*tmp;
 	char	*map;
 	char	**map1;
-	
+	int 	n;
+	int		s;
+	int		w;
+	int		e;
 }   t_cub;
 
 typedef struct s_texture
@@ -77,7 +80,6 @@ typedef struct s_exec
 	t_mlx	mlx;
 	t_info	inf;
 	char	**av;
-
 }	t_exec;
 
 /*PART 2*/
