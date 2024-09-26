@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/25 17:35:00 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:22:02 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,56 +167,53 @@ int check_all_is_full(t_texture *texture)
 		return 1;
 	return 0;
 }
-
-int parsing_map(t_cub *cub)
+int check_valid_map(char **map, int i, int count)
 {
-	cub->s = 0;
-	cub->n = 0;
-	cub->w = 0;
-	cub->e = 0;
-	
-	/* split '\n' in map to change it to 2D array */
-	cub->map1 = ft_split(cub->map, '\n');
-	int i = 0;
-	/*check valid caracter in map*/
-	while(cub->map1[i])
+	int j;
+
+	while (map[i])
 	{
-		int j = 0;
-		while(cub->map1[i][j])
+		j = 0;
+		while (map[i][j])
 		{
 			/*count map is have this caracters '1' '0' ' ' 'S' 'W' 'N' 'E' */
-			if (cub->map1[i][j] != '1' && cub->map1[i][j] != '0'
-				&& cub->map1[i][j] != ' ' && cub->map1[i][j] != 'N'
-				&& cub->map1[i][j] != 'S' && cub->map1[i][j] != 'E'
-				&& cub->map1[i][j] != 'W')
-			{
-				return (printf("Error\ninvalid caracter '%c' in map\n", cub->map1[i][j]),1);
-			}
+			if (map[i][j] != '1' && map[i][j] != '0'
+				&& map[i][j] != ' ' && map[i][j] != 'N'
+				&& map[i][j] != 'S' && map[i][j] != 'E'
+				&& map[i][j] != 'W')
+				return (printf("Error\ninvalid caracter '%c' in map\n", map[i][j]),1);
 			/*count player*/
-			if (cub->map1[i][j] == 'S')
-				cub->s++;
-			if (cub->map1[i][j] == 'W')
-				cub->w++;
-			if (cub->map1[i][j] == 'E')
-				cub->e++;
-			if (cub->map1[i][j] == 'N')
-				cub->n++;
+			if (map[i][j] == 'S'
+				|| map[i][j] == 'N'
+				|| map[i][j] == 'W'
+				|| map[i][j] == 'E')
+				count++;
 			j++;
 		}
 		i++;
 	}
 	/*check player*/
-	if (cub->s > 1 || cub->w > 1 || cub->e > 1 || cub->n > 1)
-		return (printf("you have multiple player\n"), 1);
-	if (cub->s == 1 && (cub->w > 0 || cub->e > 0 || cub->n > 0))
-		return (printf("you have multiple player\n"), 1);
-	if (cub->w == 1 && (cub->s > 0 || cub->e > 0 || cub->n > 0))
-		return (printf("you have multiple player\n"), 1);
-	if (cub->e == 1 && (cub->s > 0 || cub->w > 0 || cub->n > 0))
-		return (printf("you have multiple player\n"), 1);
-	if (cub->n == 1 && (cub->s > 0 || cub->e > 0 || cub->w > 0))
-		return (printf("you have multiple player\n"), 1);
-	i = 0;
+	if (count != 1)
+		return (printf("you have multiple player or you don't have any player\n"), 1);
+	return (0);
+}
+int is_invalid(char **map, int i, size_t j)
+{
+    return (
+        ((i == 0 || j == 0) && map[i][j] == '0') ||
+        (map[i][j + 1] == ' ' || map[i][j - 1] == ' '|| map[i][j + 1] == '\0') ||
+        ((map[i - 1][j] == ' ' || map[i - 1][j] == '\0')) ||
+        (map[i + 1] == NULL || (map[i + 1][j] == ' ' || map[i + 1][j] == '\0'))
+    );
+}
+int parsing_map(t_cub *cub, int len)
+{
+	/* split '\n' in map to change it to 2D array */
+	cub->map1 = ft_split1(cub->map, '\n',len);
+	/*check valid caracter in map*/
+	if (check_valid_map(cub->map1, 0, 0))
+		return (1);
+	int i = 0;
 	size_t j = 0;
 	int p = 0;
 	/*now check  is avalid map or not*/
@@ -226,7 +223,6 @@ int parsing_map(t_cub *cub)
 		/*skip just ' '*/
 		while (cub->map1[i][j] == ' ')
 			j++;
-
 		if (cub->map1[i][j] == '\0')
 		{
 			int k = i - 1;
@@ -234,7 +230,7 @@ int parsing_map(t_cub *cub)
 				j++;
 			while (cub->map1[k][j])
 			{
-				if (cub->map1[k][j] == '0')
+				if (cub->map1[k][j] != '1')
 					return (printf("NOT VALID ==> %s\n", cub->map1[k]),1);
 				j++;
 			}
@@ -244,17 +240,12 @@ int parsing_map(t_cub *cub)
 		}
 		while (cub->map1[i][j])
 		{
-			if (((i == 0) && cub->map1[i][j] == '0')
-				|| (j == 0 && cub->map1[i][j] == '0')
-				|| (i == p && cub->map1[i][j] == '0')
-				|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == ' ')
-				|| (cub->map1[i][j] == '0' && cub->map1[i][j + 1] == '\0')
-				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == ' ' && cub->map1[i][j + 1] == '0')
-				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == '0' && cub->map1[i - 1][j] == ' ')
-				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == '0' && cub->map1[i - 1][j] == '\0')
-				|| (i != 0 && j < ft_strlen(cub->map1[i - 1]) && cub->map1[i][j] == ' ' && cub->map1[i - 1][j] == '0')
-				|| (cub->map1[i + 1] == NULL && cub->map1[i][j] == '0') // for last line if have '0'
-				|| (cub->map1[i + 1]&& i != 0 && j < ft_strlen(cub->map1[i + 1]) && cub->map1[i][j] == ' ' && cub->map1[i + 1][j] == '0'))
+			if ((cub->map1[i][j] == '0' 
+				|| cub->map1[i][j] == 'N' 
+				|| cub->map1[i][j] == 'W' 
+				|| cub->map1[i][j] == 'E' 
+				|| cub->map1[i][j] == 'S')
+				&& is_invalid(cub->map1, i ,j))
 				return (printf("NOT VALID ==> %s\n", cub->map1[i]),1);
 			j++;
 		}
@@ -301,29 +292,32 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 		cub->file = get_next_line(fd);
 	}
 	/*if all variable (texture and color is full) go to read map now and join in this variable cub->map*/
+	size_t k = 0;
 	if (cub->file)
 	{
 		cub->map = NULL;
 		while(cub->file != NULL)
 		{
+			size_t j = ft_strlen(cub->file);// for check largest line for allocat in split1
 			i = 0;
 			while(cub->file[i])
 				i++;
-			if ((i > 0) && cub->file[i - 1] != '\n')
-				return (close(fd), write(2, "error\nadd a new line in the last line in map\n", 45) ,1);
+			// if ((i > 0) && cub->file[i - 1] != '\n')
+			// 	return (close(fd), write(2, "error\nadd a new line in the last line in map\n", 45) ,1);
 			if (i == 1 && cub->file[i - 1] == '\n')
 				return (close(fd), write(2, "error\nerror in map", 18) ,1);
+			if (j > k)
+				k = j;
 			cub->map = ft_strjoin1(cub->map, cub->file);
 			free(cub->file);
 			cub->file = get_next_line(fd);
 		}
-		
 	}
 	else
 		return (printf("error\nput your map\n"), 1);
 	close(fd);
 	/*after read map go to parsing this map*/
-	if (parsing_map(cub))
+	if (parsing_map(cub, k))
 		return (1);
 	else
 		texture->map = cub->map1;
@@ -354,6 +348,5 @@ int main(int ac, char **av)
 		printf("%s\n", texture.map[i]);
 		i++;
 	}
-	
 	return 0;
 }

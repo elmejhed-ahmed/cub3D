@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/25 17:10:09 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:37:22 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ typedef struct s_cub
     char	*tmp;
 	char	*map;
 	char	**map1;
-	int 	n;
-	int		s;
-	int		w;
-	int		e;
+	int 	count_player;
 }   t_cub;
 
 typedef struct s_texture
