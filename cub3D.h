@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/26 12:37:22 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:38:53 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # include "./libft/libft.h"
 # include <stdio.h>
-# include "./part1/get_next_line.h"
+// # include "./part1/get_next_line.h"
 # include <math.h>
 # include <unistd.h>
 # include <mlx.h>
@@ -78,6 +78,10 @@ typedef struct s_exec
 	t_info	inf;
 	char	**av;
 }	t_exec;
+
+/*PART1*/
+int read_file(char **av, t_cub *cub, t_texture *texture);
+
 
 /*PART 2*/
 char	**cub_get_map(t_info *inf, int i);
