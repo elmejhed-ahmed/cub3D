@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 19:55:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/25 13:53:15 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:18:02 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		len2;
 	char	*arr;
 
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strjoin("", s2));
-	if (!s2)
-		return (ft_strjoin(s1, ""));
+	if ((!s1 || !s2))
+		return (0);
 	len = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	arr = malloc(sizeof(char) * len + len2 + 1);
@@ -33,22 +29,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memmove(arr + len, s2, len2);
 	*(arr + len + len2) = '\0';
 	return (arr);
-}
-char	*ft_strjoin1(char *s1, char *s2)
-{
-	char		*ml;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strjoin("", s2));
-	if (!s2)
-		return (ft_strjoin(s1, ""));
-	ml = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (!ml)
-		return (NULL);
-	ft_memcpy(ml, s1, ft_strlen(s1));
-	ft_memcpy(ml + ft_strlen(s1), s2, ft_strlen(s2));
-	ml[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	return (ml);
 }

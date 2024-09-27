@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 13:38:53 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/27 17:18:16 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,20 @@
 # define CUB3D_H
 # include "./libft/libft.h"
 # include <stdio.h>
-// # include "./part1/get_next_line.h"
 # include <math.h>
-# include <unistd.h>
-# include <mlx.h>
-# ifndef PI
-# define PI 3.14
+// # include <mlx.h>
+# include "./minilibx-linux/mlx.h"
 
-# define N (str[i] == 'N' && str[i + 1] == 'O')
-# define S (str[i] == 'S' && str[i + 1] == 'O')
-# define W (str[i] == 'W' && str[i + 1] == 'E')
-# define E (str[i] == 'E' && str[i + 1] == 'A')
-# define Fl (str[i] == 'F')
-# define Ce (str[i] == 'C')
-# endif
-
-#define PIXELS 30
-
-typedef struct s_cub
-{
-    char	*file;
-    char	*file2;    
-    char	*copy;    
-    char	*tmp;
-	char	*map;
-	char	**map1;
-	int 	count_player;
-}   t_cub;
-
-typedef struct s_texture
-{
-	char 	*NO;
-	char 	*SO;
-	char 	*WE;
-	char 	*EA;
-	int		F[3];
-	int		C[3];
-	char	**map;
-} t_texture;
+# define AOV 60
+# define PIXELS 30
+# define SPEED 5
+# define VIEW_SPEED 20
 
 typedef struct	s_mlx
 {
 	void	*mlx;
 	void	*mlx_w;
+	void	*mlx_img_add;
 	unsigned int	win_hei;
 	unsigned int	win_wid;
 }	t_mlx;
@@ -72,22 +43,96 @@ typedef struct s_info
 
 }	t_info;
 
+typedef struct s_img
+{
+	void			*image;
+	char			*image_add;
+	int				bits_pp;
+	int				line_;
+	int				endian;
+	unsigned int	xlen;
+	unsigned int	ylen;
+	int				color;
+}	t_img;
+
+typedef struct s_ply
+{
+	void	*img;
+	int		turn;
+	double		rotangle;
+	int		px;
+	int		py;
+	int		rds;
+	int		endlx;
+	int		endrx;
+	int		enduy;
+	int		enddy;
+} t_ply;
+
+typedef struct s_tex
+{
+	void	*image;
+	void	*flr;
+	void	*wall;
+	t_ply	ply;
+
+} t_tex;
+
+typedef struct s_ray
+{
+	int	x;
+	int	y;
+	int	len;
+} t_ray;
+
+typedef struct s_cir
+{
+	int	x;
+	int	y;
+	int	cx;
+	int cy;
+	int rds;
+	int to_center;
+	int to_fill;
+} t_cir;
+
 typedef struct s_exec
 {
 	t_mlx	mlx;
 	t_info	inf;
+	t_img	img;
+	t_tex	tex;
+	t_ray	line;
 	char	**av;
-}	t_exec;
 
-/*PART1*/
-int read_file(char **av, t_cub *cub, t_texture *texture);
+}	t_exec;
 
 
 /*PART 2*/
+void	ft_draw_rays(t_exec *exec);
 char	**cub_get_map(t_info *inf, int i);
 double	degree_to_rad(double deg);
-void	to_free(char **av);
+void	to_free_cub(char **av);
 int		file_len(t_info *info);
+int		creat_and_start_awindow(t_mlx *mlx);
+void	set_pixels_to_image(t_img *img, t_exec *exec, int color);
+int		draw_the_floor(t_exec *exec);
+int		draw_the_walls(t_exec *exec);
+int		draw_the_player(t_exec *exec);
+int     init_info_struct(t_info *inf, char **av);
+int		init_structs(void *ptr, int ind, char **av);
+int		init_mlx_struct(t_exec *exec);
+int		catch_moves(int key, void *p);
+int		ft_move_player(t_exec *exec);
+void	draw_circle(t_exec *exec, t_cir *cir);
+int		check_walls(int ind, int y, int x, t_exec *exec);
+int 	ft_dda_algo(t_exec *exec, double endy, double endx);
+double	rad_to_degree(double rad);
+void	bresenhams_line_algo(t_exec *exec,int endy,int endx);
+void	define_the_end_position(double *y, double *x, t_exec *exec);
+void	bresenham_line_algo2(int x0, int y0, int x1, int y1, t_exec *exec);
+void	draw_map(t_exec *exec);
+int trace_rays1(t_exec *exec);
 
 #endif
 
