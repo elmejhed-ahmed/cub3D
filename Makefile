@@ -1,7 +1,7 @@
 NAME=cub3D
 CC=cc
 S=-fsanitize=address -g
-FLAGS=-Wall -Wextra -Werror $(S)
+FLAGS=-Wall -Wextra -Werror #$(S)
 PARSING = ./part1/read_file.c
 PART2   = 
 SRC=cub.c $(PARSING) $(PART2)
