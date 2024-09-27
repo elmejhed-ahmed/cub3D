@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/09/27 13:45:56 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:13:55 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 		}
 		if (count > 3)
 			return (printf("error\nthis number {%s} is not correct \n",trim), 1);
-		free(trim);
 		k++;
 	}
 	if (str[j] == 'F')
@@ -253,7 +252,6 @@ int read_textures_colors(t_cub *cub, int fd ,t_texture *texture)
 			return (close(fd), write(2, "error\nerror new line\n", 21) ,1);
 		if (i == 1 && trim[i - 1] == '\n')
 		{
-			free(cub->file);
 			cub->file = get_next_line(fd);
 			continue;
 		}
@@ -261,7 +259,6 @@ int read_textures_colors(t_cub *cub, int fd ,t_texture *texture)
 			break;
 		if (go_to_check(cub->file, texture, 0))
 				return (close(fd),1);
-		free(cub->file);
 		cub->file = get_next_line(fd);
 	}
     return 0;
@@ -301,7 +298,6 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 			if (j > k)
 				k = j;
 			cub->map = ft_strjoin1(cub->map, cub->file);
-			free(cub->file);
 			cub->file = get_next_line(fd);
 		}
 	}
