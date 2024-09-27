@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "unistd.h": "c",
-        "sstream": "c",
-        "libft.h": "c",
-        "math.h": "c",
-        "mlx.h": "c"
-    }
-}
