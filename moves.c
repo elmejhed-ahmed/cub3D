@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 17:58:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:37:32 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,53 @@ void define_the_end_position(double *y, double *x, t_exec *exec)
     }
 }
 
+void draw_the_opposite(double angle, int hyp, int x, int y, t_mlx mlx)
+{
+    /* first find the hypotenuse*/
+    /* cos = adj / hyp */
+    /* hyp = cos / adj */
+    /* sin = opp / hyp */
+    int xx;
+
+    printf("your hypo %d your value in rad %f\n", hyp, angle);
+    double opp =  (hyp * sin(angle));
+    int i = 0;
+    printf("your OPP %f\n", opp);
+    while(i <= ((int)opp) && i > 0)
+    {
+        xx = (x + i) - cos(degree_to_rad(90));
+        mlx_pixel_put(mlx.mlx, mlx.mlx_w, xx , y, 0x000000);
+    }
+    printf("THE VALUE OF I OUTSIDE %d\n", i);
+}
+
+void draw_the_walls11(int rx, int ry, t_exec *exec)
+{
+    (void)rx;
+    (void)ry;
+    (void)exec;
+}
+
 int trace_rays1(t_exec *exec)
 {
     double start_angle;
     double x;
     double y;
     int i = -1;
-    int ii;
-    
-    ii = PIXELS / 15;
-    while(++i < AOV)
+
+    while(++i < (AOV))
     {
         x = exec->tex.ply.px;
         y = exec->tex.ply.py;
         start_angle = (exec->tex.ply.rotangle - degree_to_rad(((AOV / 2) - i)));
         while(exec->inf.map[(int)y / PIXELS][(int)x / PIXELS] != '1')
         {
-            y -= (sin(start_angle) * ii);
-            x -= (cos(start_angle) * ii);
+            x -= (cos(start_angle) * 1);
+            y -= (sin(start_angle) * 1);
             if (exec->inf.map[((int)y) / PIXELS][((int)x) / PIXELS] != '1')
                 mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0x000000);
         }
-        ii = 1;
+        draw_the_walls11(x, y, exec);
     }
     return (0);
 }
@@ -96,8 +121,8 @@ int     move_up(t_exec *exec)
     double y;
     x = (cos(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.px;
     y = (sin(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.py;
-    ft_move_player(exec);
-    trace_rays1(exec);
+    // ft_move_player(exec);
+    // trace_rays1(exec);
     // bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
     return (0);
 }
@@ -118,8 +143,8 @@ int move_down(t_exec *exec)
     double y;
     x = (cos(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.px;
     y = (sin(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.py;
-    ft_move_player(exec);
-    trace_rays1(exec);
+    // ft_move_player(exec);
+    // trace_rays1(exec);
     // bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
     return (0);
 }
@@ -146,9 +171,9 @@ int move_righ(t_exec *exec)
     double y;
     x = (cos(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.px;
     y = (sin(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.py;
-    ft_move_player(exec);
-    // bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
-    trace_rays1(exec);
+    // ft_move_player(exec);
+    // // bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
+    // trace_rays1(exec);
     return (0);
 }
 
@@ -161,17 +186,14 @@ int move_left(t_exec *exec)
     if (exec->tex.ply.rotangle <= 0)
         exec->tex.ply.rotangle += 2 * M_PI;
     exec->tex.ply.rotangle -= degree_to_rad(VIEW_SPEED);
-    double x;
-    double y;
-    x = (cos(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.px;
-    y = (sin(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.py;
-    printf("after L== %f\n", rad_to_degree(exec->tex.ply.rotangle));
-    printf("start pos %d, %d\n",exec->tex.ply.py, exec->tex.ply.px );
-    printf("the end pos (%f, %f)\n", y, x);
-    // define_the_end_position(&y, &x, exec);
-    mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x3A00FF);
-    ft_move_player(exec);
-    // bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
+    // double x;
+    // double y;
+    // // x = (cos(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.px;
+    // // y = (sin(exec->tex.ply.rotangle) * PIXELS) + exec->tex.ply.py;
+    // // // define_the_end_position(&y, &x, exec);
+    // // mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x3A00FF);
+    // ft_move_player(exec);
+    // // bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, (int)y, (int)x, exec);
     trace_rays1(exec);
      return (0);
 }
@@ -183,14 +205,15 @@ int catch_moves(int key, void *p)
     exec = p;
     (void)exec;
     (void)p;
-    mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr ,((exec->tex.ply.px - (PIXELS / 2))/ PIXELS), ((exec->tex.ply.py - (PIXELS / 2)) / PIXELS));
     if (key == 124 || key == 65363)
         move_righ(exec);
-    if (key == 123 || key == 65361)
+    else if (key == 123 || key == 65361)
         move_left(exec);
-    if (key == 126 || key == 65362)
+    else if (key == 126 || key == 65362)
         move_up(exec);
-    if (key == 125 || key == 65364)
+    else if (key == 125 || key == 65364)
         move_down(exec);
+    ft_move_player(exec);
+    trace_rays1(exec);
     return (0);
 }
