@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/28 17:37:32 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:12:17 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,16 @@ void draw_the_opposite(double angle, int hyp, int x, int y, t_mlx mlx)
     printf("THE VALUE OF I OUTSIDE %d\n", i);
 }
 
-void draw_the_walls11(int rx, int ry, t_exec *exec)
+void draw_the_walls11(double rx, double ry, t_exec *exec)
 {
-    (void)rx;
+    int ds;
+    // int str;
+    int nheigh;
+
+    ds = sqrt(pow(rx - exec->tex.ply.px, 2) + pow(ry - exec->tex.ply.py, 2));
+    // printf("DS %d\n", ds);
+    nheigh  = ((exec->mlx.win_hei / 2) / ds) * exec->mlx.win_hei / 4;
+    printf("height s %d %d\n", nheigh, exec->mlx.win_hei);
     (void)ry;
     (void)exec;
 }
@@ -85,13 +92,14 @@ int trace_rays1(t_exec *exec)
         start_angle = (exec->tex.ply.rotangle - degree_to_rad(((AOV / 2) - i)));
         while(exec->inf.map[(int)y / PIXELS][(int)x / PIXELS] != '1')
         {
-            x -= (cos(start_angle) * 1);
-            y -= (sin(start_angle) * 1);
+            x -= (cos(start_angle));
+            y -= (sin(start_angle));
             if (exec->inf.map[((int)y) / PIXELS][((int)x) / PIXELS] != '1')
                 mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, (int)x, (int)y, 0x000000);
         }
         draw_the_walls11(x, y, exec);
     }
+    exit (0);
     return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/28 17:30:00 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:03:19 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define PIXELS 30
 # define SPEED 10
 # define VIEW_SPEED 10
-# define P_2_PP 200
+# define P_2_PP 150
 
 typedef struct	s_mlx
 {
