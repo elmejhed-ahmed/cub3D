@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/28 11:48:39 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:31:20 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int	draw_the_player(t_exec *exec)
 	exec->img = img;
 	cir.rds = rds;
 	cir.to_fill = 0;
-	// exec->tex.flr = exec->tex.image;
 	while(exec->inf.map[y])
 	{
 		x = 0;
@@ -132,12 +131,12 @@ int	draw_the_player(t_exec *exec)
 				exec->tex.ply.endrx = (x * PIXELS) / 2;
 				exec->tex.ply.enduy = (y * PIXELS) / 2;
 				exec->tex.ply.enddy = (y * PIXELS) / 2;
-				double xx = 0;
-				double yy = 0;
+				exec->tex.ply.rays = exec->mlx.win_wid;
+				exec->tex.ply.inc = AOV / exec->tex.ply.rays;
 				if (exec->inf.map[y][x] == 'N')
 				{
 					exec->tex.ply.rotangle = degree_to_rad(90);
-					mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, xx, yy, 0x000000);
+					// mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, xx, yy, 0x000000);
 
 				}
 				if (exec->inf.map[y][x] == 'S')
@@ -146,10 +145,11 @@ int	draw_the_player(t_exec *exec)
 					exec->tex.ply.rotangle = degree_to_rad(180);
 				if (exec->inf.map[y][x] == 'E')
 					exec->tex.ply.rotangle = degree_to_rad(0);
-				mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, x * (PIXELS), y * PIXELS);
-				draw_circle(exec, &cir);
-				mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x000000);
 				trace_rays1(exec);
+				// mlx_put_image_to_window(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.flr, x * (PIXELS), y * PIXELS);
+				// draw_circle(exec, &cir);
+				// mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, exec->tex.ply.px, exec->tex.ply.py, 0x000000);
+				// trace_rays1(exec);
 				// bresenhams_line_algo(exec, yy, xx);
 			}
 			x++;

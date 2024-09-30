@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/28 18:03:19 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:01:01 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 # define AOV 60
 # define PIXELS 30
 # define SPEED 10
-# define VIEW_SPEED 10
+# define VIEW_SPEED 5 * (M_PI / 180);
 # define P_2_PP 150
 
 typedef struct	s_mlx
 {
 	void	*mlx;
 	void	*mlx_w;
+	void	*mlx_w1;
 	void	*mlx_img_add;
 	unsigned int	win_hei;
 	unsigned int	win_wid;
@@ -41,7 +42,6 @@ typedef struct s_info
 	char		**map;
 	int			flr_cl;
 	int			clg_cl;
-
 }	t_info;
 
 typedef struct s_img
@@ -58,16 +58,19 @@ typedef struct s_img
 
 typedef struct s_ply
 {
-	void	*img;
-	int		turn;
+	void		*img;
+	int			turn;
 	double		rotangle;
-	int		px;
-	int		py;
-	int		rds;
-	int		endlx;
-	int		endrx;
-	int		enduy;
-	int		enddy;
+	int			px;
+	int			py;
+	int			rds;
+	int			endlx;
+	int			endrx;
+	int			enduy;
+	int			enddy;
+	double		rays;
+	double		inc;
+	int			inc_move;
 } t_ply;
 
 typedef struct s_tex
@@ -130,10 +133,9 @@ int		check_walls(int ind, int y, int x, t_exec *exec);
 int 	ft_dda_algo(t_exec *exec, double endy, double endx);
 double	rad_to_degree(double rad);
 void	bresenhams_line_algo(t_exec *exec,int endy,int endx);
-void	define_the_end_position(double *y, double *x, t_exec *exec);
 void	bresenham_line_algo2(int x0, int y0, int x1, int y1, t_exec *exec);
 void	draw_map(t_exec *exec);
-int trace_rays1(t_exec *exec);
+int		trace_rays1(t_exec *exec);
 
 #endif
 
