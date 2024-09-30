@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/09/27 15:13:55 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:46:31 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,17 @@ int go_to_check(char *str, t_texture *texture, int i)
 	while (str[i] == ' ')
 		i++;
 	int j = i;
-	if ((Fl || Ce ) && (str[i + 1] == ' '))
+	if (((str[i] == 'F') || (str[i] == 'C'))
+		&& (str[i + 1] == ' '))
 	{
 		if (pars_color_floor_ceiling(str, texture, i))
 			return 1;
 	}
-	else if (((N || S || W || E || Fl || Ce )) && (str[i + 2] == ' '))
+	else if (((str[i] == 'N' && str[i + 1] == 'O')
+			||(str[i] == 'S' && str[i + 1] == 'O')
+			||(str[i] == 'W' && str[i + 1] == 'E')
+			||(str[i] == 'E' && str[i + 1] == 'A'))
+			&& (str[i + 2] == ' '))
 	{
 		i += 2;
 		while(str[i] == ' ')

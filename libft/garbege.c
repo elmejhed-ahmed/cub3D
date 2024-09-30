@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:03:28 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/09/27 16:55:31 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:51:37 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,20 @@ t_garb **get_last_node()
     static t_garb *node = NULL;
     return &node;
 }
+void gc_free_all()
+{
+	t_garb **head = get_last_node();
+	t_garb *node = *head;
 
+	while (node != NULL)
+	{
+		t_garb *next_n = node->next;
+		free(node->ptr);
+		free(node);
+		node = next_n;
+	}
+	head = NULL;
+}
 void *gc_malloc(int size)
 {
     t_garb **head = get_last_node();
@@ -35,3 +48,4 @@ void *gc_malloc(int size)
     *head = node;
     return ptr;
 }
+

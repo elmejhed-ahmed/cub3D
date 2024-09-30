@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:09:28 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 15:14:13 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:54:35 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ typedef struct s_garb
 }	t_garb;
 
 void	*gc_malloc(int size);
-t_garb **get_last_node();
+t_garb  **get_last_node();
+void   gc_free_all();
 char	*ft_strdup1(const char *s1);
 char	*ft_strjoin1(char *s1, char *s2);
 char	**ft_split1(char const *s, char c, int len);

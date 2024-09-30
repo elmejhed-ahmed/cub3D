@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/27 16:55:16 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:56:06 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,13 @@ int check_extention(char *str)
 }
 
 
-void gc_free_all()
-{
-	t_garb **head = get_last_node();
-	t_garb *node = *head;
 
-	while (node != NULL)
-	{
-		t_garb *next_n = node->next;
-		free(node->ptr);
-		free(node);
-		node = next_n;
-	}
-	head = NULL;
-}
 void fr(){system("leaks cub");}
 int main(int ac, char **av)
 {
 	t_cub cub;
 	t_texture texture;
-	atexit(fr);
+	// atexit(fr);
 	if (ac != 2)
 		return (write(0, "error\ninvalid argument\n", 23), 1);
 	if (check_extention(av[1]))
@@ -53,21 +40,20 @@ int main(int ac, char **av)
 	if (read_file(av, &cub, &texture))
 		return (gc_free_all(), 1);
 	
-	printf("%s\n", texture.NO);
-	printf("%s\n", texture.SO);
-	printf("%s\n", texture.WE);
-	printf("%s\n", texture.EA);
-	printf("F (%d, %d, %d)\n", texture.F[0], texture.F[1], texture.F[2]);
-	printf("C (%d, %d, %d)\n", texture.C[0], texture.C[1], texture.C[2]);
-	int i = 0;
-	while (texture.map[i])
-	{
-		printf("%s\n", texture.map[i]);
-		i++;
-	}
+	// printf("%s\n", texture.NO);
+	// printf("%s\n", texture.SO);
+	// printf("%s\n", texture.WE);
+	// printf("%s\n", texture.EA);
+	// printf("F (%d, %d, %d)\n", texture.F[0], texture.F[1], texture.F[2]);
+	// printf("C (%d, %d, %d)\n", texture.C[0], texture.C[1], texture.C[2]);
+	// int i = 0;
+	// while (texture.map[i])
+	// {
+	// 	printf("%s\n", texture.map[i]);
+	// 	i++;
+	// }
 
 
 	gc_free_all();
-	// printf("%s\n", texture.WE);
 	return 0;
 }
