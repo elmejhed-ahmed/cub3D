@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 13:52:12 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:17:45 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef struct s_cub
 {
     char	*file;
+	size_t  len;
     char	*file2;    
     char	*copy;    
     char	*tmp;
@@ -44,7 +45,9 @@ typedef struct s_texture
 	char 	*WE;
 	char 	*EA;
 	int		F[3];
+	int		F_color;
 	int		C[3];
+	int		C_color;
 	char	**map;
 } t_texture;
 

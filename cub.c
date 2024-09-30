@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 13:56:06 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:18:59 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int ac, char **av)
 		return (write(0, "error\ninvalid extention\n", 24), 1);
 	if (read_file(av, &cub, &texture))
 		return (gc_free_all(), 1);
-	
+	printf("%zu\n\n\n", cub.len);
 	// printf("%s\n", texture.NO);
 	// printf("%s\n", texture.SO);
 	// printf("%s\n", texture.WE);

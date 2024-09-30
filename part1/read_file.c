@@ -6,11 +6,15 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/09/30 13:46:31 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:18:24 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+int switch_RGB_hex(int color[3])
+{
+	return ((color[0] << 16 | color[1] << 8) | color[2]);
+}
 
 int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 {
@@ -78,10 +82,12 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 		while(new[i])
 		{
 			texture->F[i] = ft_atoi(new[i]);
-			if ( texture->F[i] > 255)
+			if (texture->F[i] > 255)
 				return (printf("error\nthis number {%d} > 255\n",texture->F[i]), 1);
 			i++;
 		}
+		// texture->F_color = switch_RGB_hex(texture->F);
+		// printf("Hexadecimal: 0x%X\n", texture->F_color);
 	}
 	if (str[j] == 'C')
 	{
@@ -286,7 +292,7 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
         return (1);
 	
 	/*if all variable (texture and color is full) go to read map now and join in this variable cub->map*/
-	size_t k = 0;
+	cub->len = 0;
 	if (cub->file)
 	{
 		cub->map = NULL;
@@ -300,8 +306,8 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 			// 	return (close(fd), write(2, "error\nadd a new line in the last line in map\n", 45) ,1);
 			if (i == 1 && cub->file[i - 1] == '\n')
 				return (close(fd), write(2, "error\nerror in map", 18) ,1);
-			if (j > k)
-				k = j;
+			if (j > cub->len)
+				cub->len = j;
 			cub->map = ft_strjoin1(cub->map, cub->file);
 			cub->file = get_next_line(fd);
 		}
@@ -310,7 +316,7 @@ int read_file(char **av, t_cub *cub, t_texture *texture)
 		return (printf("error\nput your map\n"), 1);
 	close(fd);
 	/*after read map go to parsing this map*/
-	if (parsing_map(cub, k))
+	if (parsing_map(cub, cub->len))
 		return (1);
 	else
 		texture->map = cub->map1;
