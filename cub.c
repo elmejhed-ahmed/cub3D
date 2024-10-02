@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 18:06:19 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:34:22 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ int start_cub(char **av)
     // draw_the_walls(&exec); // the same
     // draw_map(&exec);       // the same
     draw_the_player(&exec);
+    // ft_move_player(&exec);
     mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
     // mlx_key_hook(exec.mlx.mlx_w, catch_moves, &exec);
     mlx_loop(exec.mlx.mlx);
@@ -198,4 +199,5 @@ int	main(int ac, char **av)
         return (ft_putstr_fd("invalide argument\n", 2), 1);
     if (start_cub(av) < 0)
         return (1);
+    // mlx_put_pixel()
 }
