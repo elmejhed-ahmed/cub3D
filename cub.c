@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 16:18:59 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:07:21 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int check_extention(char *str)
 void fr(){system("leaks cub");}
 int main(int ac, char **av)
 {
+	t_exec exec;
 	t_cub cub;
 	t_texture texture;
 	// atexit(fr);
@@ -39,7 +40,15 @@ int main(int ac, char **av)
 		return (write(0, "error\ninvalid extention\n", 24), 1);
 	if (read_file(av, &cub, &texture))
 		return (gc_free_all(), 1);
-	printf("%zu\n\n\n", cub.len);
+	int i = 0;
+	while (texture.map[i])
+		i++;
+	exec.mlx.mlx = mlx_init((int)cub.len * 30, i * 30, "Cub3D", true);
+	exec.mlx.mlx_w = mlx_new_image(exec.mlx.mlx, 0, 0);
+
+	mlx_loop(exec.mlx.mlx);
+	// mlx_texture_to_image()
+	// printf("%zu\n\n\n", cub.len);
 	// printf("%s\n", texture.NO);
 	// printf("%s\n", texture.SO);
 	// printf("%s\n", texture.WE);

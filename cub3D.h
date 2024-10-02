@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/09/30 16:17:45 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:42:02 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
-# include "./minilibx-linux/mlx.h"
+# include "./MLX42/include/MLX42/MLX42.h"
 
 # define AOV 60
 # define PIXELS 30
