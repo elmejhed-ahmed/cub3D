@@ -6,81 +6,51 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/03 12:25:37 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:14:16 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void bresenhams_line_algo(t_exec *exec, int endy, int endx)
-// {
-//     int subx;
-//     int suby;
-//     int m;
-//     int x;
-//     int y;
+void bresenham_line_algo3(int y0, int x0, int y1, int x1, t_exec *exec)
+ {
+    int dx;
+    int dy;
+    int sx ;
+    int sy ;
+    int err;
+    int e2;
 
-//     /* starting point x = 330 y == 150*/
-//     /* end point x == 330 y == 120 */
-//     /* x represente horizental line and y represente vertical line */
-//     subx = endx - exec->tex.ply.px;
-//     suby = endy - exec->tex.ply.py;
-//     x = exec->tex.ply.px;
-//     y = exec->tex.ply.py;
-
-//     m = (2 * suby) - subx;
-//     mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, endx, endy, 0xEFFF00);
-//     if (subx == 0)
-//     {
-//         while (y <= endy)
-//         {
-//             mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x000000);
-//             y++;  // Increment y only
-//         }
-//         while (y > endy)
-//         {
-//             mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x000000);
-//             y--;
-//         }
-//     }
-//     else if (suby == 0)
-//     {
-//          while (x <= endx)
-//         {
-//             mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x000000);
-//             y++;  // Increment y only
-//         }
-//         while (x > endx)
-//         {
-        
-//             mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x000000);
-//             x--;
-//         }
-//     }
-//     else
-//     {
-//         int i = -1;
-//         while (i++ < 30)
-//         {
-//             if (m < 0)
-//                 m += (2 * suby);
-//             else
-//             {
-//                 m +=  + (2 * suby) - (2 * subx);
-//                 y = y + 1;
-//             }
-//             x = x + 1;
-//             printf("the vlaue x == %d\n", x);
-//             mlx_pixel_put(exec->mlx.mlx, exec->mlx.mlx_w, x, y, 0x000000);
-//         }
-//     }
-//     printf("GONE\n");
-// }
-
-// void plot(int x, int y) {
-//     printf("Plotting pixel at (%d, %d)\n", x, y);
-// }
-
+    dx = ft_abs(x1 - x0);
+    dy = ft_abs(y1 - y0);
+    if (x0 < x1)
+        sx = 1;
+    else 
+        sx = -1;
+    if (y0 < y1)
+        sy = 1;
+    else
+        sy = -1;
+    err = dx - dy;
+    mlx_put_pixel(exec->wind_image, x0, y0, 0x12FF0012);
+    while (1)
+    {
+        e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx)
+         {
+            err += dx;
+            y0 += sy; 
+        }
+        if ((x0 < 0 || y0 < 0 || x0 >= (int)exec->mlxx.win_wid  || y0 >= (int)exec->mlxx.win_hei) ||  (x0 == x1 && y0 == y1))
+            break;
+        mlx_put_pixel(exec->wind_image, x0, y0, 0x73674673);
+    }
+}
 
 void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
  {
@@ -102,11 +72,9 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
     else
         sy = -1;
     err = dx - dy;
-    // printf("y0 %d x0 %d === %c\n", (y0 - (PIXELS / 2)) / PIXELS, (x0 - (PIXELS / 2)) / PIXELS);
+    mlx_put_pixel(exec->wind_image, x0, y0, 0x12FF0012);
     while (1)
     {
-        if ((x0 == x1 && y0 == y1))
-            break;
         e2 = 2 * err;
         if (e2 > -dy)
         {
@@ -118,6 +86,8 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
             err += dx;
             y0 += sy; 
         }
+        if ((x0 < 0 || y0 < 0 || x0 >= (int)exec->mlxx.win_wid  || y0 >= (int)exec->mlxx.win_hei) ||  (x0 == x1 && y0 == y1))
+            break;
         mlx_put_pixel(exec->wind_image, x0, y0, 0x00000000);
     }
 }
@@ -177,9 +147,10 @@ int start_cub(char **av)
     // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
     draw_map(&exec);       // the same
     set_player_info(&exec);
+    ray_casting(&exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
-    // mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
     mlx_loop(exec.mlx);
+    // mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
     return (0);
 }
 
@@ -189,5 +160,9 @@ int	main(int ac, char **av)
         return (ft_putstr_fd("invalide argument\n", 2), 1);
     if (start_cub(av) < 0)
         return (1);
+    printf("values between 0 and 90 == %f\n", tan(19));
+    printf("values between 90 and 180 == %f\n", tan(140));
+    printf("values between 180 and 270 == %f\n", tan(210));
+    printf("values between 270 and 360 == %f\n", tan(300));
     // mlx_put_pixel()
 }

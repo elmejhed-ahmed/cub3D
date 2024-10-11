@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   cub_clean.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 10:19:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/09 11:22:56 by anqabbal         ###   ########.fr       */
+/*   Created: 2024/09/19 10:30:58 by anqabbal          #+#    #+#             */
+/*   Updated: 2024/10/09 11:28:04 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include  "../cub3d.h"
+#include "../cub3d.h"
 
-double  degree_to_rad(double deg)
-{
-    return (deg * (M_PI / 180));
-}
+// void to_free_cub(char **av)
+// {
+//     int i;
 
-double rad_to_degree(double rad)
-{
-    return (rad * (180.0 / M_PI));
-}
+//     i = -1;
+//     if (av)
+//     {
+//         while(av[++i])
+//             free(av[i]);
+//         free(av);
+//     }
+// }
