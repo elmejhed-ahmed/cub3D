@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/10 20:12:32 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:13:59 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void draw_map(t_exec *exec)
 		y++;
 	}
 }
+
 
 int	set_player_info(t_exec *exec)
 {

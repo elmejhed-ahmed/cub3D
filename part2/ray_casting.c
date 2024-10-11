@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 13:17:08 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:49:16 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ void fill_ray_information(t_exec *exec, t_ray *ray, double angle)
 	find_vertical_inter(angle, exec, &rays[1]);
 	
 	/*fixing fishingbowl first*/
-	// rays[0].ds = fixing_fichbowl(rays[0].ds, angle, exec);
-	// rays[1].ds = fixing_fichbowl(rays[1].ds, angle, exec);
+	rays[0].ds = fixing_fichbowl(rays[0].ds, angle, exec);
+	rays[1].ds = fixing_fichbowl(rays[1].ds, angle, exec);
 	
 	/* draw with bresenham's algo the rays */
 	if ((rays[0].ds < rays[1].ds && rays[0].ds != (INT_MIN)) || rays[1].ds == (INT_MIN))
@@ -183,14 +183,14 @@ void fill_ray_information(t_exec *exec, t_ray *ray, double angle)
 		ray->dx = rays[0].dx;
 		ray->dy = rays[0].dy;
 		ray->ds = rays[0].ds;
-		ray->vh = 1;
+		ray->hv = 1;
 	}
 	else
 	{
 		ray->dx = rays[1].dx;
 		ray->dy = rays[1].dy;
 		ray->ds = rays[1].ds;
-		ray->vh = 0;
+		ray->hv = 0;
 	}
 }
 
@@ -199,8 +199,8 @@ int ray_casting(t_exec *exec)
     double  angle;
     double  i ;
     double  inc;
+    t_ray ray[exec->mlxx.win_wid];
 
-    t_ray   ray[exec->mlxx.win_wid];
     int     c;
 
     inc = exec->tex.ply.rays_inc;
@@ -211,7 +211,12 @@ int ray_casting(t_exec *exec)
         angle = exec->tex.ply.rotangle - (degree_to_rad((AOV / 2) - i));
 		fill_ray_information(exec, &ray[c], angle);
 		// bresenham_line_algo2(exec->tex.ply.py, exec->tex.ply.px, ray[c].dy, ray[c].dx, exec);
-        draw_the_walls22(c, exec, angle, ray[c].ds, ray[c].vh);
+        if ((int)i == 30){
+            exec->ray90.ds = ray[c].ds;
+            exec->ray90.dx = ray[c].dx;
+            exec->ray90.dy = ray[c].dy;
+        }
+        draw_the_walls22(c, exec, angle, &ray[c]);
         // if (((dsh < dsv) && dsh != (INT_MIN)) || dsv == (INT_MIN))
         //     bresenham_line_algo2((int)exec->tex.ply.py, (int)exec->tex.ply.px, (int)ray[0].dy, (int)ray[0].dx, exec);
         // else
