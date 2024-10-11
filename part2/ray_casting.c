@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 13:09:39 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:17:08 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void fix_current_angle(double *angle)
         *angle += 2 * M_PI;
 }
 
-int ft_abs(int nm)
+double ft_abs(double nm)
 {
     if (nm < 0)
         return (nm *= -1);

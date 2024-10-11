@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 13:05:27 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:17:40 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int		ray_casting(t_exec *exec);
 void	draw_the_walls11(int rx, double ry, t_exec *exec, double angle, int nro);
 void draw_the_walls22(int rx, t_exec *exec, double angle, double ds, int vew);
 
-int	ft_abs(int nm);
+double	ft_abs(double nm);
 
 #endif
 

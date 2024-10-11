@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/11 13:09:20 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:15:57 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void draw_the_walls22(int rx, t_exec *exec, double angle, double ds, int vew)
     double no, e,w,s;
 
     ds = fixing_fichbowl(ds, angle , exec);
-    printf("the wid %u and the ds == %d\n", exec->mlxx.win_wid, (int)ds);
+    // printf("the wid %u and the ds == %d\n", exec->mlxx.win_wid, (int)ds);
     wall_heigh  =((PIXELS) / (ds)) * (((exec->mlxx.win_wid / 2) / tan(degree_to_rad(AOV / 2)))); /* the new heigh of the wall that you want to draw */
     if (isinf(wall_heigh))
         wall_heigh = n;
