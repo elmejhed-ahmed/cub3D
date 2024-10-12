@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard          #+#    #+#             */
-/*   Updated: 2024/10/11 16:21:21 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:53:48 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void mlx_loop(mlx_t* mlx)
 {
 	MLX_NONNULL(mlx);
 
-	double start, oldstart = 0;
+	float start, oldstart = 0;
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		start = glfwGetTime();

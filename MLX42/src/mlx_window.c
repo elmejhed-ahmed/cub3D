@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 01:14:59 by W2wizard          #+#    #+#             */
-/*   Updated: 2024/10/11 16:21:21 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:53:48 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 void mlx_update_matrix(const mlx_t* mlx)
 {
 	const mlx_ctx_t* mlxctx = mlx->context;
-	const double depth = mlxctx->zdepth;
+	const float depth = mlxctx->zdepth;
 
 	/**
 	 * In case the setting to stretch the image is set, we maintain the width and height but not
 	 * the depth.
 	 */
-	const double width = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialWidth : mlx->width;
-	const double height = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialHeight : mlx->height;
+	const float width = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialWidth : mlx->width;
+	const float height = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialHeight : mlx->height;
 
-	const double matrix[16] = {
+	const float matrix[16] = {
 		2.f / width, 0, 0, 0,
 		0, 2.f / -(height), 0, 0,
 		0, 0, -2.f / (depth - -depth), 0,

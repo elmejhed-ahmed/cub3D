@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard          #+#    #+#             */
-/*   Updated: 2024/10/11 16:21:21 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:53:48 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ uint32_t mlx_rgba_to_mono(uint32_t color)
 
 //= Public =//
 
-double mlx_get_time(void)
+float mlx_get_time(void)
 {
 	return (glfwGetTime());
 }
