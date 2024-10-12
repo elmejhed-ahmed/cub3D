@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/12 17:23:06 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
     int y ;
     int x ;
     int color;
-    float no, e,w,s;
+    double no, e,w,s;
     
     // (void)angle;
     ray->ds = fixing_fichbowl(ray->ds, angle , exec);
