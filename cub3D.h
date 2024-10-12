@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 16:17:13 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 17:13:51 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "./MLX42/include/MLX42/MLX42.h"
 
 # define AOV 60
-# define PIXELS 60
+# define PIXELS 70
 # define SPEED 10
 # define VIEW_SPEED 10 * (M_PI / 180);
 
@@ -118,6 +118,10 @@ typedef struct s_exec
 	t_ray		*ray;
 	t_ray		ray90;
 	char		**av;
+	mlx_image_t *we;
+    mlx_image_t *no;
+    mlx_image_t *so;
+    mlx_image_t *ea;
 }	t_exec;
 
 

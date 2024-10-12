@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 16:34:16 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:57:18 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int     init_info_struct(t_info *info, t_cub *cub, t_texture *text)
     (void)ind;
     exec = ptr;
     if (read_file(av, &exec->cub, &exec->text))
-		return (gc_free_all(), 1);
+		  return (gc_free_all(), 0);
     init_info_struct(&exec->info, &exec->cub, &exec->text);
     return (0);
 }

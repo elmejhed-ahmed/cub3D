@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 16:06:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,15 @@ void my_close(void *ptr)
     exit (0);
 }
 
+mlx_image_t *ft_texture(t_exec *exec, char *path_texture)
+{
+    mlx_texture_t *texture;
+    mlx_image_t *image;
+    texture = mlx_load_png(path_texture);
+    
+    image = mlx_texture_to_image(exec->mlx, texture);
+    return image;
+}
 int start_cub(char **av)
 {
     t_exec exec;
@@ -102,12 +111,18 @@ int start_cub(char **av)
         return (-1);
     if (creat_and_start_awindow(&exec) < 0)
         return (-1);
-    draw_map(&exec);
+    // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w); //TODO to destory 2d map uncomment this destroy
+    // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
+    draw_map(&exec);       // the same
+    exec.no = ft_texture(&exec, ft_strdup("./png/we.png"));
+    exec.so = ft_texture(&exec, ft_strdup("./png/no.png"));
+    exec.we = ft_texture(&exec, ft_strdup("./png/so.png"));
+    exec.ea = ft_texture(&exec, ft_strdup("./png/ea.png"));
     set_player_info(&exec);
     ray_casting(&exec);
-    mlx_close_hook(exec.mlx, clean_and_exit, &exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);
     mlx_loop(exec.mlx);
+    // mlx_hook(exec.mlx.mlx_w1, 2, 0, catch_moves, &exec); // switch the window pointer for which window you want to catch keys
     return (0);
 }
 /* FOR PARSING */
