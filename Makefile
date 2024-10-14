@@ -2,26 +2,32 @@ NAME=cub3D
 CC=cc
 S=-fsanitize=address -g
 FLAGS=-Wall -Wextra -Werror $(S)
-PARSING = ./part1/read_file.c
-PART2   = 
-SRC=  cub.c $(PARSING) $(PART2)
+PART1= ./part1/read_file.c
+BOUSS = ./bonus/part1/read_file_bonus.c
+PART2=	./part2/the_circle.c  ./part2/utils1.c ./part2/ray_casting_utils.c ./part2/ray_casting.c\
+		 ./part2/utils2.c ./part2/creat_window.c\
+		./part2/init_structs.c ./part2/creat_textures.c ./part2/move_player.c ./part2/catch_moves.c\
+		./part2/catch_moves_utils.c ./part2/ft_check_walls.c
+SRC=  cub.c  $(PART2) $(PART1)
 OBJ=$(SRC:.c=.o)
-LIBFT=./libft/libft.a  ./MLX42/build/libmlx42.a
+LIBFT=./libft/libft.a
 LIBFT_PATH=./libft
 LIBFT_LINUX=./libft_linux
-INCLUDES=./libft/libft.h cub3d.h ./MLX42/include/MLX42/MLX42.h
-FRAMEWORKS= -framework OpenGL -framework AppKit -lmlx -framework Cocoa -framework OpenGL -framework IOKit
+INCLUDES=./libft/libft.h cub3d.h
+# USER=$(echo ($USER))
+FRAMEWORK= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+NWMLX = ./MLX42/build/libmlx42.a
 MLX_PATH = ./minilibx-linux
-MLX=$(MLX_PATH)/libmlx_Linux.a 
+MLX=$(MLX_PATH)/libmlx_Linux.a
 LINUX= -lX11 -lXext -lXrandr
 SYSTEM=$(uname)
 
-all : libf $(NAME)
+all : libf  $(NAME)
 
 #  all : libf mlx  $(NAME)
 
-# mlx :
-# 	make -C $(MLX_PATH)
+mlx :
+	make -C ./MLX42/build
 
 libf :
 	make -C $(LIBFT_PATH)
@@ -30,7 +36,7 @@ libf :
 # 	make -C $(LIBFT_LINUX)
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT)  -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(FRAMEWORKS) -o $@
+	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(FRAMEWORK) $(NWMLX) -o $@
 
 # $(NAME) : $(OBJ)
 # 	$(CC) $(FLAGS) $(OBJ) $(LIBFT_LINUX)/libft.a  $(MLX) $(LINUX) -o $@
@@ -49,3 +55,4 @@ fclean : clean
 re : fclean all
 
 .PHONY : clean
+

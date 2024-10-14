@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   read_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/14 14:25:02 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:26:28 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int switch_RGB_hex(int color[3], int a)
 {
@@ -173,11 +173,11 @@ int check_valid_map(char **map, int i, int count)
 		j = 0;
 		while (map[i][j])
 		{
-			/*count map is have this caracters '1' '0' ' ' 'S' 'W' 'N' 'E' */
+			/*count map is have this caracters '1' '0' ' ' 'S' 'W' 'N' 'E' 'D'*/
 			if (map[i][j] != '1' && map[i][j] != '0'
 				&& map[i][j] != ' ' && map[i][j] != 'N'
 				&& map[i][j] != 'S' && map[i][j] != 'E'
-				&& map[i][j] != 'W')
+				&& map[i][j] != 'W' && map[i][j] != 'D')
 				return (printf("Error\ninvalid caracter '%c' in map\n", map[i][j]),1);
 			/*count player*/
 			if (map[i][j] == 'S'
@@ -277,7 +277,7 @@ int read_textures_colors(t_cub *cub, int fd ,t_texture *texture)
 	}
     return 0;
 }
-int read_file(char **av, t_cub *cub, t_texture *texture)
+int read_file_bonuss(char **av, t_cub *cub, t_texture *texture)
 {
 	int fd;
 	int i;
