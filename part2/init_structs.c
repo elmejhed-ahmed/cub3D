@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:22:26 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:36:39 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int     init_info_struct(t_info *info, t_cub *cub, t_texture *text)
     info->map = text->map;
     info->win_wid = cub->len * PIXELS;
     info->win_hei = cub->len_h * PIXELS;
-    info->flr_cl = 0xE3E3E3E3;
-    info->clg_cl = 0x332d3133;
+    info->flr_cl = text->F_color;
+    // printf("%x\n", );
+    info->clg_cl = text->C_color;
     return (0);
 }
 

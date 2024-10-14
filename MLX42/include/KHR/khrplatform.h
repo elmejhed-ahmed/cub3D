@@ -76,7 +76,7 @@
  *    KHRONOS_FALSE, KHRONOS_TRUE Enumerated boolean false/true values.
  *
  *    KHRONOS_SUPPORT_INT64 is 1 if 64 bit integers are supported; otherwise 0.
- *    KHRONOS_SUPPORT_float is 1 if floats are supported; otherwise 0.
+ *    KHRONOS_SUPPORT_FLOAT is 1 if floats are supported; otherwise 0.
  *
  * Calling convention macros defined in this file:
  *    KHRONOS_APICALL
@@ -152,7 +152,7 @@ typedef uint32_t                khronos_uint32_t;
 typedef int64_t                 khronos_int64_t;
 typedef uint64_t                khronos_uint64_t;
 #define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_float   1
+#define KHRONOS_SUPPORT_FLOAT   1
 /*
  * To support platform where unsigned long cannot be used interchangeably with
  * inptr_t (e.g. CHERI-extended ISAs), we can use the stdint.h intptr_t.
@@ -179,7 +179,7 @@ typedef uint32_t                khronos_uint32_t;
 typedef int64_t                 khronos_int64_t;
 typedef uint64_t                khronos_uint64_t;
 #define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_float   1
+#define KHRONOS_SUPPORT_FLOAT   1
 
 #elif defined(_WIN32) && !defined(__SCITECH_SNAP__)
 
@@ -191,7 +191,7 @@ typedef unsigned __int32        khronos_uint32_t;
 typedef __int64                 khronos_int64_t;
 typedef unsigned __int64        khronos_uint64_t;
 #define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_float   1
+#define KHRONOS_SUPPORT_FLOAT   1
 
 #elif defined(__sun__) || defined(__digital__)
 
@@ -208,7 +208,7 @@ typedef long long int           khronos_int64_t;
 typedef unsigned long long int  khronos_uint64_t;
 #endif /* __arch64__ */
 #define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_float   1
+#define KHRONOS_SUPPORT_FLOAT   1
 
 #elif 0
 
@@ -218,7 +218,7 @@ typedef unsigned long long int  khronos_uint64_t;
 typedef int                     khronos_int32_t;
 typedef unsigned int            khronos_uint32_t;
 #define KHRONOS_SUPPORT_INT64   0
-#define KHRONOS_SUPPORT_float   0
+#define KHRONOS_SUPPORT_FLOAT   0
 
 #else
 
@@ -231,7 +231,7 @@ typedef uint32_t                khronos_uint32_t;
 typedef int64_t                 khronos_int64_t;
 typedef uint64_t                khronos_uint64_t;
 #define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_float   1
+#define KHRONOS_SUPPORT_FLOAT   1
 
 #endif
 
@@ -268,9 +268,9 @@ typedef signed   long  int     khronos_ssize_t;
 typedef unsigned long  int     khronos_usize_t;
 #endif
 
-#if KHRONOS_SUPPORT_float
+#if KHRONOS_SUPPORT_FLOAT
 /*
- * float type
+ * Float type
  */
 typedef          float         khronos_float_t;
 #endif

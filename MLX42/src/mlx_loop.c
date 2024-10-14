@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mlx_loop.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/28 01:24:36 by W2Wizard          #+#    #+#             */
-/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   mlx_loop.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2023/03/28 16:34:17 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void mlx_loop(mlx_t* mlx)
 {
 	MLX_NONNULL(mlx);
 
-	float start, oldstart = 0;
+	double start, oldstart = 0;
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		start = glfwGetTime();

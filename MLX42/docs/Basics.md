@@ -71,7 +71,7 @@ typedef struct mlx
 	void*		context;
 	int32_t		width;
 	int32_t		height;
-	float		delta_time;
+	double		delta_time;
 }	mlx_t;
 ```
 

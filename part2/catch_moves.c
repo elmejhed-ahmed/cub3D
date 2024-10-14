@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:23:06 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:09:23 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
     n = wall_heigh;
     y = 0;
     x = 0;
-    // if (wall_heigh > exec->mlxx.win_hei)
-    //     wall_heigh = exec->mlxx.win_hei;
     int clg = ((exec->info.win_hei) / 2) - (wall_heigh / 2);
     no = angle > 0 && angle < M_PI;
     s = !no;

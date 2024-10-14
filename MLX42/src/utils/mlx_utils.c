@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 20:13:17 by W2Wizard          #+#    #+#             */
-/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   mlx_utils.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/11/22 10:56:09 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ uint32_t mlx_rgba_to_mono(uint32_t color)
 
 //= Public =//
 
-float mlx_get_time(void)
+double mlx_get_time(void)
 {
 	return (glfwGetTime());
 }

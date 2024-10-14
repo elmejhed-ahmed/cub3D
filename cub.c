@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:05:52 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,14 @@ mlx_image_t *ft_texture(t_exec *exec, char *path_texture)
     mlx_texture_t *texture;
     mlx_image_t *image;
     texture = mlx_load_png(path_texture);
-    
+    if (!texture)
+	{
+		write(2,"Error\nIn valid path",19);
+		printf("'%s'", path_texture);
+		clean_and_exit(exec);
+	}
     image = mlx_texture_to_image(exec->mlx, texture);
+	mlx_delete_texture(texture);
     return image;
 }
 int start_cub(char **av)
@@ -114,10 +120,10 @@ int start_cub(char **av)
     // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w); //TODO to destory 2d map uncomment this destroy
     // mlx_destroy_window(exec.mlx.mlx, exec.mlx.mlx_w1); //TODO to destory 3d map uncomment this destroy
     draw_map(&exec);       // the same
-    exec.no = ft_texture(&exec, ft_strdup("./png/we.png"));
-    exec.so = ft_texture(&exec, ft_strdup("./png/no.png"));
-    exec.we = ft_texture(&exec, ft_strdup("./png/so.png"));
-    exec.ea = ft_texture(&exec, ft_strdup("./png/ea.png"));
+    exec.no = ft_texture(&exec, exec.text.NO);
+    exec.so = ft_texture(&exec, exec.text.SO);
+    exec.we = ft_texture(&exec, exec.text.WE);
+    exec.ea = ft_texture(&exec, exec.text.EA);
     set_player_info(&exec);
     ray_casting(&exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);

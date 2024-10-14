@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/12 16:19:21 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:25:02 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int switch_RGB_hex(int color[3])
+int switch_RGB_hex(int color[3], int a)
 {
-	return ((color[0] << 16 | color[1] << 8) | color[2]);
+	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | a);
 }
 
 int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
@@ -87,8 +87,7 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 				return (printf("error\nthis number {%d} > 255\n",texture->F[i]), 1);
 			i++;
 		}
-		// texture->F_color = switch_RGB_hex(texture->F);
-		// printf("Hexadecimal: 0x%X\n", texture->F_color);
+		texture->F_color = switch_RGB_hex(texture->F, 255);
 	}
 	if (str[j] == 'C')
 	{
@@ -100,6 +99,7 @@ int pars_color_floor_ceiling(char *str, t_texture *texture, int j)
 				return (printf("error\nthis number {%d} > 255\n",texture->C[i]), 1);
 			i++;
 		}
+		texture->C_color = switch_RGB_hex(texture->C, 255);
 	}
 	return 0;
 }

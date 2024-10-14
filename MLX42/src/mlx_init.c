@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mlx_init.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/28 00:24:30 by W2Wizard          #+#    #+#             */
-/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   mlx_init.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2023/06/08 18:16:19 by XEDGit        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static bool mlx_create_buffers(mlx_t* mlx)
 	glBindBuffer(GL_ARRAY_BUFFER, mlxctx->vbo);
 
 	// Vertex XYZ coordinates
-	glVertexAttribPointer(0, 3, GL_float, GL_FALSE, sizeof(vertex_t), NULL);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex_t), NULL);
 	glEnableVertexAttribArray(0);
 
 	// UV Coordinates
-	glVertexAttribPointer(1, 2, GL_float, GL_FALSE, sizeof(vertex_t), (void *)(sizeof(float) * 3));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex_t), (void *)(sizeof(float) * 3));
 	glEnableVertexAttribArray(1);
 
 	// Texture index
