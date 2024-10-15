@@ -1,13 +1,14 @@
 NAME=cub3D
 CC=cc
-S=-fsanitize=address -g
+S= -fsanitize=address -g 
 FLAGS=-Wall -Wextra -Werror $(S)
-PART1= ./part1/read_file.c
+PART1= ./bonus/part1/read_file_bonus.c
+BOUSS = ./bonus/part1/read_file_bonus.c
 PART2=	./part2/the_circle.c  ./part2/utils1.c ./part2/ray_casting_utils.c ./part2/ray_casting.c\
 		 ./part2/utils2.c ./part2/creat_window.c\
 		./part2/init_structs.c ./part2/creat_textures.c ./part2/move_player.c ./part2/catch_moves.c\
 		./part2/catch_moves_utils.c ./part2/ft_check_walls.c
-SRC=  cub.c  $(PART2) $(PART1)
+SRC=  cub.c  $(PART2) $(PART1) $(BONUS)
 OBJ=$(SRC:.c=.o)
 LIBFT=./libft/libft.a
 LIBFT_PATH=./libft

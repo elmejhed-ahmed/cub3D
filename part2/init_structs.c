@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:14:44 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/14 14:36:39 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:43:34 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int     init_info_struct(t_info *info, t_cub *cub, t_texture *text)
 
     (void)ind;
     exec = ptr;
-    if (read_file(av, &exec->cub, &exec->text))
+    if (read_file_bonus(av, &exec->cub, &exec->text))
 		  return (gc_free_all(), -1);
     init_info_struct(&exec->info, &exec->cub, &exec->text);
     return (0);

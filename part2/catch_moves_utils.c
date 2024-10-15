@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:18:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:56:30 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void move_left(t_exec *exec, char ind)
     else
     {
         exec->tex.ply.rotangle -= VIEW_SPEED;
-        if (exec->tex.ply.rotangle < (float)0)
+        if (exec->tex.ply.rotangle < (double)0)
             exec->tex.ply.rotangle += 2 * M_PI;
     }
 }
@@ -55,6 +55,8 @@ void move_right(t_exec *exec, char ind)
             return ;
         exec->tex.ply.py -= (sin(exec->tex.ply.rotangle + degree_to_rad(90)) * exec->tex.ply.move_inc);
         exec->tex.ply.px -= (cos(exec->tex.ply.rotangle + degree_to_rad(90)) * exec->tex.ply.move_inc);
+        // printf("y ==> %f\n x ==> %f\n",exec->tex.ply.py ,exec->tex.ply.px)
+        
     }
     else
     {

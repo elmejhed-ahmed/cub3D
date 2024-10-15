@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:12:25 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:57:54 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
     
 // }
 
-// static void set_first_inter(float *cur_psy, float *cur_psy, float angle, t_exec *exec)
+// static void set_first_inter(double *cur_psy, double *cur_psy, double angle, t_exec *exec)
 // {
     
 // }
 
-int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
+int find_horizontal_inter(double angle,t_exec *exec, t_ray *ray)
 {
-    float cur_psx;   
-    float cur_psy;
-    float xinc;
-    float yinc;
+    double cur_psx;   
+    double cur_psy;
+    double xinc;
+    double yinc;
     char     b;
     char     up;
     char     right;
@@ -55,8 +55,8 @@ int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
     {
         if (exec->info.map[(int)floor(((cur_psy + b)/ PIXELS))][(int)floor(((cur_psx) / PIXELS))] == '1')
             break ;
-           cur_psy += yinc;
-           cur_psx += xinc;
+        cur_psy += yinc;
+        cur_psx += xinc;
     }
     ray->ds = (sqrt((pow((cur_psx - exec->tex.ply.px), 2)) + (pow((cur_psy - exec->tex.ply.py), 2))));
     ray->dx = cur_psx;
@@ -64,12 +64,12 @@ int find_horizontal_inter(float angle,t_exec *exec, t_ray *ray)
     return (ray->ds);
 }
 
-int find_vertical_inter(float angle, t_exec *exec, t_ray *ray)
+int find_vertical_inter(double angle, t_exec *exec, t_ray *ray)
 {
-    float  cur_psx;   
-    float  cur_psy;
-    float  yinc;
-    float  xinc;
+    double  cur_psx;   
+    double  cur_psy;
+    double  yinc;
+    double  xinc;
     char		up;
     char		right;
     char		b;
@@ -110,9 +110,9 @@ int find_vertical_inter(float angle, t_exec *exec, t_ray *ray)
 
 int ray_casting(t_exec *exec)
 {
-    float  angle;
-    float  i ;
-    float  inc;
+    double  angle;
+    double  i ;
+    double  inc;
     t_ray ray[exec->info.win_wid];
 
     int     c;
@@ -123,6 +123,7 @@ int ray_casting(t_exec *exec)
     while((int)i <= (AOV) && c < (int)exec->info.win_wid)
     {
         angle = exec->tex.ply.rotangle - (degree_to_rad((AOV / 2) - i));
+        fix_current_angle(&angle);
 		fill_ray_information(exec, &ray[c], angle);
         if ((int)i == 30){
             exec->ray90.ds = ray[c].ds;

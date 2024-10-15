@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:34:37 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 17:13:51 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:53:45 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define AOV 60
 # define PIXELS 70
-# define SPEED 10
+# define SPEED 20
 # define VIEW_SPEED 10 * (M_PI / 180);
 
 typedef struct s_cub
@@ -65,25 +65,26 @@ typedef struct s_ply
 	int			color;
 	void		*img;
 	int			turn;
-	float		rotangle;
-	float		px;
-	float		py;
+	double		rotangle;
+	double		px;
+	double		py;
 	int			rds;
 	int			endlx;
 	int			endrx;
 	int			enduy;
 	int			enddy;
-	float		rays;
-	float		rays_inc;
-	float		move_inc;
+	double		rays;
+	double		rays_inc;
+	double		move_inc;
 } t_ply;
 
 typedef struct s_ray
 {
-	float	ds;
-	float	dx;
-	float	dy;
-	char	hv;
+	double	ds;
+	double	dx;
+	double	dy;
+	int	hv;
+	int	d;
 } t_ray;
 
 typedef struct s_tex
@@ -122,6 +123,7 @@ typedef struct s_exec
     mlx_image_t *no;
     mlx_image_t *so;
     mlx_image_t *ea;
+    mlx_image_t *d;
 }	t_exec;
 
 
@@ -134,6 +136,7 @@ typedef void (*mlx_closefunc)(void* param);
 int ft_check_walls(t_exec *exec, int ind);
 
 
+int		read_file_bonus(char **av, t_cub *cub, t_texture *texture);
 int		read_file(char **av, t_cub *cub, t_texture *texture);
 int     init_info_struct(t_info *info, t_cub *cub, t_texture *text);
 int		init_structs(void *ptr, int ind, char **av);
@@ -152,26 +155,26 @@ void	move_down(t_exec *exec);
 void	clean_and_exit(void *ptr);
 
 
-float	degree_to_rad(float deg);
+double	degree_to_rad(double deg);
 void	to_free_cub(char **av);
 void	set_pixels_to_image(t_exec *exec, int color1,  int color2);
 int		ft_move_player(t_exec *exec);
 void	draw_circle(t_exec *exec, t_cir *cir);
-int 	ft_dda_algo(t_exec *exec, float endy, float endx);
-float	rad_to_degree(float rad);
+int 	ft_dda_algo(t_exec *exec, double endy, double endx);
+double	rad_to_degree(double rad);
 void	bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec);
 int		ray_casting(t_exec *exec);
-void	fill_ray_information(t_exec *exec, t_ray *ray, float angle);
-void	it_is_left_or_right(float angle, char *value);
-void	fix_current_angle(float *angle);
-float	ft_abs(float nm);
-void	it_is_up_or_down(float angle, char *value);
-int		find_vertical_inter(float angle, t_exec *exec, t_ray *ray);
-int		find_horizontal_inter(float angle,t_exec *exec, t_ray *ray);
-float	fixing_fichbowl(float ds, float angle, t_exec *exec);
-void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray);
+void	fill_ray_information(t_exec *exec, t_ray *ray, double angle);
+void	it_is_left_or_right(double angle, char *value);
+void	fix_current_angle(double *angle);
+double	ft_abs(double nm);
+void	it_is_up_or_down(double angle, char *value);
+int		find_vertical_inter(double angle, t_exec *exec, t_ray *ray);
+int		find_horizontal_inter(double angle,t_exec *exec, t_ray *ray);
+double	fixing_fichbowl(double ds, double angle, t_exec *exec);
+void	draw_the_walls22(int rx, t_exec *exec, double angle, t_ray *ray);
 
-float	ft_abs(float nm);
+double	ft_abs(double nm);
 
 #endif
 

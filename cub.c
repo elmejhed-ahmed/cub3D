@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:23:04 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/14 14:05:52 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:49:22 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void bresenham_line_algo2(int y0, int x0, int y1, int x1, t_exec *exec)
     }
 }
 
-int ft_dda_algo(t_exec *exec, float endy, float endx)
+int ft_dda_algo(t_exec *exec, double endy, double endx)
 {
-    float m;
-    float starty;
-    float startx;
+    double m;
+    double starty;
+    double startx;
 
     starty = exec->tex.ply.py;
     startx = exec->tex.ply.px;
@@ -70,7 +70,7 @@ int ft_dda_algo(t_exec *exec, float endy, float endx)
             startx += 1;
             starty += m;
         }
-        else if (m > (float)1)
+        else if (m > (double)1)
         {
             startx += 1;
             starty += (1 / m);
@@ -80,7 +80,7 @@ int ft_dda_algo(t_exec *exec, float endy, float endx)
             startx += 1;
             starty += 1;
         }
-        mlx_put_pixel (exec->wind_image, startx, starty, 0x000000);
+        mlx_put_pixel(exec->wind_image, startx, starty, 0x000000);
         i++;
     }
     return (0);
@@ -124,6 +124,7 @@ int start_cub(char **av)
     exec.so = ft_texture(&exec, exec.text.SO);
     exec.we = ft_texture(&exec, exec.text.WE);
     exec.ea = ft_texture(&exec, exec.text.EA);
+    exec.d = ft_texture(&exec, "./png/door.png");
     set_player_info(&exec);
     ray_casting(&exec);
     mlx_key_hook(exec.mlx, &catch_moves, &exec);

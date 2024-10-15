@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/12 11:06:47 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:59:00 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,29 @@ int draw_the_walls(t_exec *exec, unsigned int y,  unsigned int x)
 	}
 	return (0);
 }
+int draw_the_door(t_exec *exec, unsigned int y,  unsigned int x)
+{
+	int color2;
+	int	xx;
+	int	yy;
 
+	yy = 0;
+	color2 = 0xfcba03fc;
+	while (yy < PIXELS)
+	{
+		xx = 0;
+		while(xx < PIXELS)
+		{
+			if (yy != 0 && xx > 0)
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x026e44ff);
+			else
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
+			xx++;
+		}
+		yy++;
+	}
+	return (0);
+}
 int one_of_this(char c)
 {
 	if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
@@ -104,6 +126,10 @@ void draw_map(t_exec *exec)
 				draw_the_walls(exec, y * PIXELS, x * PIXELS);
 			else if (!one_of_this(exec->info.map[y][x]))
 				draw_the_floor(exec, y * PIXELS, x * PIXELS);
+			else if (exec->info.map[y][x] == 'D')
+				draw_the_door(exec, y * PIXELS, x * PIXELS);
+			if (exec->info.map[(int)floor(exec->tex.ply.py / PIXELS)][(int)floor(exec->tex.ply.px / PIXELS)] == 'D')
+				draw_the_floor(exec, (int)floor(exec->tex.ply.py / PIXELS) * PIXELS, (int)floor(exec->tex.ply.px / PIXELS) * PIXELS);
 			x++;
 		}
 		y++;

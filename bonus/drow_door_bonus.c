@@ -1,23 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   drow_door_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 10:19:47 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/14 17:21:18 by ael-mejh         ###   ########.fr       */
+/*   Created: 2024/10/15 11:49:58 by ael-mejh          #+#    #+#             */
+/*   Updated: 2024/10/15 11:50:23 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include  "../cub3d.h"
+#include "../cub3d.h"
 
-double  degree_to_rad(double deg)
-{
-    return (deg * (M_PI / 180));
-}
-
-double rad_to_degree(double rad)
-{
-    return (rad * (180.0 / M_PI));
-}
