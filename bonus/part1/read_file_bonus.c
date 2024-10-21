@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:35:55 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/15 11:46:41 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:13:25 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../cub3d_bonus.h"
 
 int switch_RGB_hex(int color[3], int a)
 {
@@ -253,7 +253,6 @@ int parsing_map(t_cub *cub, int len)
 		i++;
 	}
 	cub->len_h = i;
-	printf("%d\n\n\n", i);
 	return 0;	
 }
 int read_textures_colors(t_cub *cub, int fd ,t_texture *texture)
@@ -281,7 +280,7 @@ int read_textures_colors(t_cub *cub, int fd ,t_texture *texture)
 	}
     return 0;
 }
-int read_file_bonus(char **av, t_cub *cub, t_texture *texture)
+int read_file(char **av, t_cub *cub, t_texture *texture)
 {
 	int fd;
 	int i;

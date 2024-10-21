@@ -566,8 +566,8 @@ PFNGLGETDEBUGMESSAGELOGPROC glad_glGetDebugMessageLog = NULL;
 PFNGLGETDOUBLEI_VPROC glad_glGetDoublei_v = NULL;
 PFNGLGETDOUBLEVPROC glad_glGetDoublev = NULL;
 PFNGLGETERRORPROC glad_glGetError = NULL;
-PFNGLGETdoubleI_VPROC glad_glGetdoublei_v = NULL;
-PFNGLGETdoubleVPROC glad_glGetdoublev = NULL;
+PFNGLGETFLOATI_VPROC glad_glGetFloati_v = NULL;
+PFNGLGETFLOATVPROC glad_glGetFloatv = NULL;
 PFNGLGETFRAGDATAINDEXPROC glad_glGetFragDataIndex = NULL;
 PFNGLGETFRAGDATALOCATIONPROC glad_glGetFragDataLocation = NULL;
 PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC glad_glGetFramebufferAttachmentParameteriv = NULL;
@@ -1361,7 +1361,7 @@ static void load_GL_VERSION_1_0(GLADloadproc load) {
 	glad_glGetBooleanv = (PFNGLGETBOOLEANVPROC)load("glGetBooleanv");
 	glad_glGetDoublev = (PFNGLGETDOUBLEVPROC)load("glGetDoublev");
 	glad_glGetError = (PFNGLGETERRORPROC)load("glGetError");
-	glad_glGetdoublev = (PFNGLGETdoubleVPROC)load("glGetdoublev");
+	glad_glGetFloatv = (PFNGLGETFLOATVPROC)load("glGetFloatv");
 	glad_glGetIntegerv = (PFNGLGETINTEGERVPROC)load("glGetIntegerv");
 	glad_glGetString = (PFNGLGETSTRINGPROC)load("glGetString");
 	glad_glGetTexImage = (PFNGLGETTEXIMAGEPROC)load("glGetTexImage");
@@ -2223,7 +2223,7 @@ static void load_GL_VERSION_4_1(GLADloadproc load) {
 	glad_glScissorIndexedv = (PFNGLSCISSORINDEXEDVPROC)load("glScissorIndexedv");
 	glad_glDepthRangeArrayv = (PFNGLDEPTHRANGEARRAYVPROC)load("glDepthRangeArrayv");
 	glad_glDepthRangeIndexed = (PFNGLDEPTHRANGEINDEXEDPROC)load("glDepthRangeIndexed");
-	glad_glGetdoublei_v = (PFNGLGETdoubleI_VPROC)load("glGetdoublei_v");
+	glad_glGetFloati_v = (PFNGLGETFLOATI_VPROC)load("glGetFloati_v");
 	glad_glGetDoublei_v = (PFNGLGETDOUBLEI_VPROC)load("glGetDoublei_v");
 }
 static void load_GL_VERSION_4_2(GLADloadproc load) {
