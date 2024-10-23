@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:21:40 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/21 17:54:51 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:37:40 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,15 @@ void mouse_fun(void *ptr)
     t_exec *exec;
 
     exec = ptr;
-    exec->ms.prevx = exec->info.win_wid / 2;
-    exec->ms.prevy = exec->info.win_hei / 2;
     mlx_get_mouse_pos(exec->mlx, &exec->ms.curx, &exec->ms.cury);
-    exec->ply.rotangle += ((exec->ms.curx - exec->ms.prevx) * exec->ms.sensitivity);
-    fix_current_angle(&exec->ply.rotangle);
-    mlx_set_mouse_pos(exec->mlx, exec->ms.prevx, exec->ms.prevy);
+    if ((exec->ms.curx > 0 && exec->ms.curx < (int)exec->info.win_wid) && (exec->ms.cury > 0 && exec->ms.cury < (int)exec->info.win_hei) )
+    {
+        mlx_set_cursor_mode(exec->mlx, MLX_MOUSE_HIDDEN);
+        exec->ply.rotangle += ((exec->ms.curx - exec->ms.prevx) * exec->ms.sensitivity);
+        fix_current_angle(&exec->ply.rotangle);
+        mlx_get_mouse_pos(exec->mlx, &exec->ms.prevx, & exec->ms.prevy);
+    }
+    // mlx_set_mouse_pos(exec->mlx, exec->ms.prevx, exec->ms.prevy);
     ray_casting(exec);
 	draw_mini_map(exec);
     draw_crosshair_and_wp(exec);

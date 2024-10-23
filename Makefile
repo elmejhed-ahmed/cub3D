@@ -2,7 +2,7 @@ NAME=cub3D
 BONUS=cub3D_bonus
 CC=cc
 S= -fsanitize=address -g
-FLAGS= -Wall -Wextra -Werror $(S)
+FLAGS= -Wall -Wextra -Werror #$(S)
 PART1=  ./mandatory/part1/read_file.c
 PART2=	./mandatory/part2/utils1.c ./mandatory/part2/ray_casting_utils.c ./mandatory/part2/ray_casting.c\
 		./mandatory/part2/creat_window.c ./mandatory/part2/creat_element.c\
@@ -50,7 +50,6 @@ $(BONUS) : $(OBJB)
 
 clean :
 	@make -C $(LIBFT) $@
-	@make -C $(MLX) $@
 	@rm -f $(OBJ)
 	@rm -f $(OBJB)
 

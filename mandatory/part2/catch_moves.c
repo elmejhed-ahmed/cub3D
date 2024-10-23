@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/20 09:47:16 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:56:53 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
 {
-    double wall_heigh;
+    float wall_heigh;
     static int n;
     int y ;
     int x ;
@@ -56,7 +56,7 @@ void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
     while((int)x++ < wall_heigh && x < (int)exec->info.map_hei)
     { 
         int top = y + (wall_heigh / 2) - (exec->info.map_hei / 2);
-        int ofsetY = top * ((double)PIXELS / wall_heigh);
+        int ofsetY = top * ((float)PIXELS / wall_heigh);
         o = ((PIXELS * ofsetY) + ofsetX) * 4;
         // if (ray->d == 2)
         // {
