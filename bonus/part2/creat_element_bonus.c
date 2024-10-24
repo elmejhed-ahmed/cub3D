@@ -6,7 +6,7 @@
 /*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:07:08 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/22 17:47:47 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:27:08 by anqabbal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int	draw_the_walls(t_exec *exec, unsigned int y, unsigned int x, int var)
 		xx = 0;
 		while (xx < var)
 		{
-			if (yy != 0 && xx > 0)
+			if (yy != 0 && xx >= 0 && x + xx <= exec->info.win_wid && x + xx >= 0 && y + yy <= exec->info.win_hei && yy + y >= 0)
 				mlx_put_pixel(exec->wind_image, x + xx, y + yy, 0x00190fff);
-			else
-					mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
+			else if (x + xx <= exec->info.win_wid && x + xx > 0  && y + yy <= exec->info.win_hei && yy + y >= 0)
+				mlx_put_pixel(exec->wind_image, x + xx, y + yy, color2);
 			xx++;
 		}
 		yy++;
@@ -96,8 +96,8 @@ void	draw_map(t_exec *exec, int var, int new_y)
 	int	x;
 
 	y = exec->mm.starty - 1;
-	exec->mm.j = -1;
-	while (exec->info.map[++y] && ++exec->mm.j < exec->mm.endy)
+	exec->mm.j = 0;
+	while (exec->mm.j < (exec->mm.endy - 1) && exec->info.map[++y])
 	{
 		x = exec->mm.startx - 1;
 		exec->mm.i = 0;
@@ -116,5 +116,6 @@ void	draw_map(t_exec *exec, int var, int new_y)
 			else
 				draw_empty_space(exec, (exec->mm.j * var) + new_y, (exec->mm.i++ * var), var);
 		}
+		exec->mm.j++;
 	}
 }
