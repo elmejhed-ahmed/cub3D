@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_moves_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:22:43 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 12:20:29 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:26:09 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,25 @@ void	draw_the_walls22(int rx, t_exec *exec, float angle, t_ray *ray)
         ofsetX = (int)ray->dx % TILE_SIZE;
     else
         ofsetX = (int)ray->dy % TILE_SIZE;
+    int max_offset = TILE_SIZE * TILE_SIZE * 4;
     while((int)x++ < wall_heigh && x <= (int)exec->info.win_hei)
     { 
         int top = y + (wall_heigh / 2) - (exec->info.win_hei / 2);
         int ofsetY = top * ((float)TILE_SIZE / wall_heigh);
         o = ((TILE_SIZE * ofsetY) + ofsetX) * 4;
-        if (ray->hv == 0 && ((angle >= 0 && angle < M_PI_2) || (angle >= 3 * M_PI_2 && angle < 2 * M_PI)))
-            color = (int)ft_pixel(exec->we->pixels[o], exec->we->pixels[o + 1], exec->we->pixels[o + 2], exec->we->pixels[o + 3]);
-        else if (ray->hv == 0 && angle >= M_PI_2 && angle < 3 * M_PI_2)
-            color = (int)ft_pixel(exec->ea->pixels[o], exec->ea->pixels[o + 1], exec->ea->pixels[o + 2], exec->ea->pixels[o + 3]);
-        else if (ray->hv == 1 && angle >= 0 && angle < M_PI)
-            color = (int)ft_pixel(exec->so->pixels[o], exec->so->pixels[o + 1], exec->so->pixels[o + 2], exec->so->pixels[o + 3]);
-        else if (ray->hv == 1 && angle >= M_PI && angle < 2 * M_PI)
-            color = (int)ft_pixel(exec->no->pixels[o], exec->no->pixels[o + 1], exec->no->pixels[o + 2], exec->no->pixels[o + 3]);
-        if (ray->d == 2)
-            color = (int)ft_pixel(exec->d->pixels[o], exec->d->pixels[o + 1], exec->d->pixels[o + 2], exec->d->pixels[o + 3]);
+        if (o >= 0 && o + 3 < max_offset)
+        {
+            if (ray->hv == 0 && ((angle >= 0 && angle < M_PI_2) || (angle >= 3 * M_PI_2 && angle < 2 * M_PI)))
+                color = (int)ft_pixel(exec->we->pixels[o], exec->we->pixels[o + 1], exec->we->pixels[o + 2], exec->we->pixels[o + 3]);
+            else if (ray->hv == 0 && angle >= M_PI_2 && angle < 3 * M_PI_2)
+                color = (int)ft_pixel(exec->ea->pixels[o], exec->ea->pixels[o + 1], exec->ea->pixels[o + 2], exec->ea->pixels[o + 3]);
+            else if (ray->hv == 1 && angle >= 0 && angle < M_PI)
+                color = (int)ft_pixel(exec->so->pixels[o], exec->so->pixels[o + 1], exec->so->pixels[o + 2], exec->so->pixels[o + 3]);
+            else if (ray->hv == 1 && angle >= M_PI && angle < 2 * M_PI)
+                color = (int)ft_pixel(exec->no->pixels[o], exec->no->pixels[o + 1], exec->no->pixels[o + 2], exec->no->pixels[o + 3]);
+            if (ray->d == 2)
+                color = (int)ft_pixel(exec->d->pixels[o], exec->d->pixels[o + 1], exec->d->pixels[o + 2], exec->d->pixels[o + 3]);
+        }
         mlx_put_pixel(exec->wind_image, rx, y++, color);
     }
     while(y < (int)exec->info.win_hei && y >= x)

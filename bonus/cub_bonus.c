@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:17:41 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 15:27:52 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:38:56 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	start_cub(char **av)
 	exec.ms.sensitivity = 0.1 / 30;
 	exec.ms.prevx = exec.info.win_wid / 2;
     exec.ms.prevy = exec.info.win_hei / 2;
-	exec.no = ft_texture(&exec, exec.text.NO);
-    exec.so = ft_texture(&exec, exec.text.SO);
-    exec.we = ft_texture(&exec, exec.text.WE);
-    exec.ea = ft_texture(&exec, exec.text.EA);
+	exec.no = ft_texture(&exec, exec.text.no);
+    exec.so = ft_texture(&exec, exec.text.so);
+    exec.we = ft_texture(&exec, exec.text.we);
+    exec.ea = ft_texture(&exec, exec.text.ea);
     exec.d = ft_texture(&exec, "./png/door.png");
 	exec.wp = ft_texture(&exec, "./png/wp.png");
 	exec.wpsht = ft_texture(&exec, "./png/wpsht.png");

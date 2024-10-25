@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 15:07:41 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:53:02 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 
 # define AOV 60
-# define PIXELS 60
-# define TILE_SIZE 60
-# define SPEED 10
+# define PIXELS 510
+# define TILE_SIZE 510
+# define SPEED 40
 # define VIEW_SPEED 10 * (M_PI / 180);
 
 typedef struct s_cub
@@ -38,14 +38,14 @@ typedef struct s_cub
 
 typedef struct s_texture
 {
-	char 	*NO;
-	char 	*SO;
-	char 	*WE;
-	char 	*EA;
-	int		F[3];
-	int		F_color;
-	int		C[3];
-	int		C_color;
+	char 	*no;
+	char 	*so;
+	char 	*we;
+	char 	*ea;
+	int		f[3];
+	int		f_color;
+	int		c[3];
+	int		c_color;
 	char	**map;
 } t_texture;
 
@@ -127,10 +127,15 @@ typedef struct s_exec
 	char 		dopen;
 }	t_exec;
 
-void	draw_the_player(t_exec *exec, int var, int new_y);
-
-int		ft_check_walls(t_exec *exec, int ind);
 int		read_file(char **av, t_cub *cub, t_texture *texture);
+int		read_textures_colors(t_cub *cub, int fd, t_texture *texture);
+int		pars_color_floor_ceiling(char *str, t_texture *texture, int j);
+int		parsing_map(t_cub *cub, int len);
+int		go_to_check(char *str, t_texture *texture, int i);
+int		check_all_is_full(t_texture *texture);
+
+void	draw_the_player(t_exec *exec, int var, int new_y);
+int		ft_check_walls(t_exec *exec, int ind);
 int     init_info_struct(t_info *info, t_cub *cub, t_texture *text);
 int		init_structs(void *ptr, char **av);
 int		creat_and_start_awindow(t_exec *exec);

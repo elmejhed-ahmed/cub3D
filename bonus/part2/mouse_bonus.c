@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:21:40 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 15:29:36 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:55:48 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void mouse_fun(void *ptr)
     }
     mlx_get_mouse_pos(exec->mlx, &exec->ms.prevx, & exec->ms.prevy);
     ray_casting(exec);
-	draw_mini_map(exec);
+	// draw_mini_map(exec);
     draw_crosshair_and_wp(exec);
 }

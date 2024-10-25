@@ -9,7 +9,8 @@ PART2=	./mandatory/part2/utils1.c ./mandatory/part2/ray_casting_utils.c ./mandat
 		./mandatory/part2/init_structs.c ./mandatory/part2/catch_moves.c\
 		./mandatory/part2/catch_moves_utils.c ./mandatory/part2/ft_check_walls.c ./mandatory/part2/bresenhams_algo.c
 
-PART1B = ./bonus/part1/read_file_bonus.c
+PART1B = ./bonus/part1/read_file_bonus.c ./bonus/part1/pars_color_bonus.c ./bonus/part1/check_textures_bonus.c\
+		 ./bonus/part1/map_pars_bonus.c
 PART2B = ./bonus/part2/utils1_bonus.c ./bonus/part2/ray_casting_utils_bonus.c ./bonus/part2/ray_casting_bonus.c\
 		 ./bonus/part2/creat_window_bonus.c ./bonus/part2/creat_element_bonus.c\
 		 ./bonus/part2/init_structs_bonus.c ./bonus/part2/catch_moves_bonus.c\
