@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:29:11 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/27 13:32:10 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/27 15:48:07 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	check_map(char **map, int *i, size_t *j, int *p)
 	}
 	return (0);
 }
+
 
 int	check_door(char **map, int i, int j)
 {
