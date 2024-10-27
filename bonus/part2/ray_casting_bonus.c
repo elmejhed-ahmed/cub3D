@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:01:31 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 09:33:39 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/26 15:19:01 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		door_or_wall(t_ray *ray, char c)
 {
 	if (c == '1')
 		return (0);
-	else if (c == 'D')
+	if (c == 'D')
 		return (ray->d = 2, 0);
 	return (1);
 }
@@ -106,8 +106,8 @@ void	find_vertical_inter(float angle, t_exec *exec, t_ray *ray, char b)
 	while (cur_psy > 0 && cur_psx > 0 && cur_psx < exec->info.map_wid
 		&& cur_psy < exec->info.map_hei)
 	{
-		if (exec->info.map[(int)floor(((cur_psy) / PIXELS))]
-			[(int)floor(((cur_psx + b) / PIXELS))] == '1')
+		if (!door_or_wall(ray , exec->info.map[(int)floor(((cur_psy) / PIXELS))]
+			[(int)floor(((cur_psx + b) / PIXELS))]))
 		{
 			// printf("POS == %c\n", exec->info.map[(int)floor(((cur_psy) / PIXELS))]
 			// [(int)floor(((cur_psx + b) / PIXELS))]);

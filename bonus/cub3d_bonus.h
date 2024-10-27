@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:04:58 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/25 15:53:02 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/27 13:24:33 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct s_exec
 }	t_exec;
 
 int		read_file(char **av, t_cub *cub, t_texture *texture);
+int		switch_rgb_hex(int color[3], int a);
+int		is_invalid(char **map, int i, size_t j);
 int		read_textures_colors(t_cub *cub, int fd, t_texture *texture);
 int		pars_color_floor_ceiling(char *str, t_texture *texture, int j);
 int		parsing_map(t_cub *cub, int len);

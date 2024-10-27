@@ -6,16 +6,11 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:55:32 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/24 16:41:02 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/27 13:22:20 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
-
-static int	switch_rgb_hex(int color[3], int a)
-{
-	return (color[0] << 24 | color[1] << 16 | color[2] << 8 | a);
-}
 
 static int	fill_color_texture1(char *str, t_texture *tex, char **new, int j)
 {

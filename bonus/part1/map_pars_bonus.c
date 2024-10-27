@@ -6,7 +6,7 @@
 /*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:29:11 by ael-mejh          #+#    #+#             */
-/*   Updated: 2024/10/24 15:45:26 by ael-mejh         ###   ########.fr       */
+/*   Updated: 2024/10/27 13:32:10 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ static int	check_valid_map(char **map, int i, int count)
 	return (0);
 }
 
-static int	is_invalid(char **map, int i, size_t j)
-{
-	return (
-		((i == 0 || j == 0) && (map[i][j] != '1')) ||
-		(map[i][j + 1] == ' ' || map[i][j - 1] == ' ' || map[i][j + 1] == '\0')
-		|| ((map[i - 1][j] == ' ' || map[i - 1][j] == '\0')) ||
-		(map[i + 1] == NULL
-		|| (map[i + 1][j] == ' ' || map[i + 1][j] == '\0')));
-}
-
 static int	check_map(char **map, int *i, size_t *j, int *p)
 {
 	int	k;
@@ -74,6 +64,23 @@ static int	check_map(char **map, int *i, size_t *j, int *p)
 	return (0);
 }
 
+int	check_door(char **map, int i, int j)
+{
+	if ((map[i][j + 1] == '1' && map[i][j - 1] == '1'))
+	{
+		if (map[i + 1][j] == '1' || map[i - 1][j] == '1')
+			return (write(2, "Error\nInvalid map\n", 19), 1);
+	}
+	else if (map[i + 1][j] == '1' && map[i - 1][j] == '1')
+	{
+		if (map[i][j + 1] == '1' || map[i][j - 1] == '1')
+			return (write(2, "Error\nInvalid map\n", 19), 1);
+	}
+	else if (map[i + 1][j] == 'D' || map[i][j + 1] == 'D')
+		return (write(2, "Error\nInvalid map\n", 19), 1);
+	return (0);
+}
+
 static int	check_map1(char **map, int i, int j)
 {
 	while (map[i][j])
@@ -86,12 +93,17 @@ static int	check_map1(char **map, int i, int j)
 			|| map[i][j] == 'D')
 			&& is_invalid(map, i, j))
 			return (write(2, "Error\nInvalid map\n", 18), 1);
-		else if (map[i][j] == 'D'
-			&& (map[i][j + 1] == '0'
-			&& map[i][j - 1] == '0'
-			&& map[i + 1][j] == '0'
-			&& map[i - 1][j] == '0'))
-			return (write(2, "Error\nInvalid map\n", 18), 1);
+		if (map[i][j] == 'D')
+		{
+			if (check_door(map, i, j))
+				return (1);
+			j++;
+			continue ;
+		}
+		else if (map[i][j] == 'D' && ((map[i][j + 1] != '1'
+			&& map[i][j - 1] != '1') || (map[i + 1][j] != '1'
+			&& map[i - 1][j] != '1')))
+			return (write(2, "Error\nInvalid mapu\n", 19), 1);
 		j++;
 	}
 	return (0);

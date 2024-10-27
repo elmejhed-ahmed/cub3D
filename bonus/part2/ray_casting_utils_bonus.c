@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_utils_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anqabbal <anqabbal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-mejh <ael-mejh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:24:24 by anqabbal          #+#    #+#             */
-/*   Updated: 2024/10/24 09:43:14 by anqabbal         ###   ########.fr       */
+/*   Updated: 2024/10/27 13:19:41 by ael-mejh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	fill_ray_information(t_exec *exec, t_ray *ray, float angle)
 {
 	t_ray	rays[2];
+	int		n;
 
 	rays[0].d = 0;
 	rays[1].d = 0;
-	int n = 0;
+	n = 0;
 	find_horizontal_inter(angle, exec, &rays[0], n);
 	find_vertical_inter(angle, exec, &rays[1], n);
 	rays[0].ds = fixing_fichbowl(rays[0].ds, angle, exec);
